@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products | DI.Fireworks</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="products.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <a href="index.html" class="logo-link">
+      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
+    </a>
+  </div>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html#home" class="nav-link">Home</a></li>
+    <li><a href="index.html#about" class="nav-link">About</a></li>
+    <li><a href="index.html#services" class="nav-link">Services</a></li>
+    <li><a href="products.html" class="nav-link active">Products</a></li>
+    <li><a href="index.html#reviews" class="nav-link">Reviews</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="index.html#contact" class="btn-contact"><i class="fas fa-phone-alt"></i> Contact Us</a>
+    <a href="#" class="btn-map" onclick="alert('Head office: Karachi, Pakistan')"><i class="fas fa-map-marker-alt"></i></a>
+  </div>
+  <div class="mobile-logo">
+    <a href="index.html" class="logo-link">
+      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
+    </a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>All <span class="red">Products</span></h1>
+  <p>Premium Fireworks & Birthday Supplies | Karachi Delivery Available</p>
+</div>
+
+<!-- CATEGORY TABS -->
+<div class="cat-tabs-wrap">
+  <div class="cat-tabs">
+    <button class="cat-tab active" data-cat="pakistani" onclick="switchCat('pakistani')">
+      <i class="fas fa-flag"></i> Pakistani Products
+    </button>
+    <button class="cat-tab" data-cat="china" onclick="switchCat('china')">
+      <i class="fas fa-globe-asia"></i> China Products
+    </button>
+    <button class="cat-tab" data-cat="birthday" onclick="switchCat('birthday')">
+      <i class="fas fa-birthday-cake"></i> Birthday Items
+    </button>
+  </div>
+</div>
+
+<!-- SUBCATEGORY FILTER -->
+<div class="subcat-wrap">
+  <div class="subcat-pills" id="subcat-pills">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- PRODUCTS GRID -->
+<div class="products-main-wrap">
+  <div class="products-main-grid" id="products-main-grid">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
+      <p>Dormet International Fireworks & Event Planners</p>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year2"></span> Dormet International Fireworks & Event Planners. All Rights Reserved. | Government Registered | Karachi, Pakistan</p>
+    </div>
+  </div>
+</footer>
+
+<script src="products.js"></script>
+</body>
+</html>
