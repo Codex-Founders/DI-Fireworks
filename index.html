@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="shortcut icon" href="di-logo.png" type="image/x-icon">
 </head>
 <body>
 
@@ -27,20 +28,14 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <div class="nav-pill">
-
-    <!-- LEFT: Hamburger (mobile) -->
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
     </div>
-
-    <!-- CENTER: Logo -->
     <div class="nav-logo">
       <a href="#home" class="logo-link">
         <img src="di-logo.png" alt="DI Fireworks" class="nav-logo-img"/>
       </a>
     </div>
-
-    <!-- DESKTOP: Nav links (hidden on mobile, shown inside hamburger menu) -->
     <ul class="nav-links" id="nav-links">
       <li><a href="#home"         class="nav-link active">Home</a></li>
       <li><a href="#about"        class="nav-link">About</a></li>
@@ -50,18 +45,17 @@
       <li><a href="#reviews"      class="nav-link">Reviews</a></li>
       <li><a href="#contact"      class="nav-link">Contact</a></li>
     </ul>
-
-    <!-- DESKTOP: Action buttons -->
     <div class="nav-actions" id="nav-actions">
       <a href="tel:+923000000000" class="icon-btn" title="Call Us"><i class="fas fa-phone-alt"></i></a>
       <a href="#" class="icon-btn gold" title="Our Location" onclick="openMap();return false;"><i class="fas fa-map-marker-alt"></i></a>
       <button id="sound-toggle" class="icon-btn sound-btn" title="Toggle Sound"><i class="fas fa-volume-xmark" id="sound-icon"></i></button>
-      <button class="theme-btn" id="theme-toggle" title="Toggle Theme"><i class="fas fa-sun" id="theme-icon"></i></button>
+      <button class="theme-btn" id="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="theme-icon"></i>
+      </button>
     </div>
-
   </div>
 
-  <!-- MOBILE DROPDOWN MENU (links + action buttons together) -->
+  <!-- MOBILE DROPDOWN MENU -->
   <div class="mobile-menu" id="mobile-menu">
     <ul class="mobile-nav-links">
       <li><a href="#home"         class="nav-link mobile-link active">Home</a></li>
@@ -82,8 +76,8 @@
       <button id="sound-toggle-m" class="mobile-action-btn" title="Toggle Sound" onclick="document.getElementById('sound-toggle').click();updateMobileSoundBtn()">
         <i class="fas fa-volume-xmark" id="sound-icon-m"></i><span id="sound-label-m">Sound</span>
       </button>
-      <button id="theme-toggle-m" class="mobile-action-btn theme" title="Toggle Theme" onclick="document.getElementById('theme-toggle').click();updateMobileThemeBtn()">
-        <i class="fas fa-sun" id="theme-icon-m"></i><span id="theme-label-m">Theme</span>
+      <button id="theme-toggle-m" class="mobile-action-btn theme" title="Toggle Theme" onclick="toggleTheme();updateMobileThemeBtn()">
+        <i class="fas fa-moon" id="theme-icon-m"></i><span id="theme-label-m">Light Mode</span>
       </button>
     </div>
   </div>
@@ -128,20 +122,60 @@
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ABOUT SECTION -->
 <section id="about">
   <div class="section-header">
     <span class="section-tag">Who We Are</span>
-    <h2>About <span class="red">DI.Fireworks</span></h2>
+    <h2 class="section-title">About <span class="red">DI.Fireworks</span></h2>
+    <p class="section-subtitle">Karachi's #1 Fireworks & Event Planning Destination</p>
   </div>
+  
   <div class="about-grid">
-    <div class="about-card"><div class="about-icon"><i class="fas fa-fire"></i></div><h3>Our Story</h3><p>Dormet International Fireworks &amp; Event Planners has been lighting up the skies of Pakistan. Based in Karachi, we serve customers all across Pakistan.</p></div>
-    <div class="about-card"><div class="about-icon"><i class="fas fa-certificate"></i></div><h3>Government Registered</h3><p>Fully government registered company. Every product meets safety and quality standards. Buy from a legitimate, trusted source.</p></div>
-    <div class="about-card"><div class="about-icon"><i class="fas fa-map-marker-alt"></i></div><h3>All Karachi Delivery</h3><p>Fast, reliable delivery across all areas of Karachi. Order from home and receive premium fireworks safely packaged at your doorstep.</p></div>
-    <div class="about-card"><div class="about-icon"><i class="fas fa-trophy"></i></div><h3>Premium Products</h3><p>Pakistani traditional fireworks, imported Chinese fireworks, and birthday party supplies — the widest range for every celebration.</p></div>
+    <!-- CARD 1 -->
+    <div class="about-card">
+      <div class="about-icon">
+        <i class="fas fa-fire"></i>
+      </div>
+      <div class="card-number">01</div>
+      <h3>Our Story</h3>
+      <p>Dormet International Fireworks has been lighting up Pakistan's skies. Based in Karachi, we serve customers nationwide with premium quality.</p>
+      <div class="card-accent"></div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="about-card">
+      <div class="about-icon">
+        <i class="fas fa-certificate"></i>
+      </div>
+      <div class="card-number">02</div>
+      <h3>Govt. Registered</h3>
+      <p>Fully government registered company. Every product meets strict safety & quality standards. Buy with complete trust & confidence.</p>
+      <div class="card-accent"></div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="about-card">
+      <div class="about-icon">
+        <i class="fas fa-shipping-fast"></i>
+      </div>
+      <div class="card-number">03</div>
+      <h3>Fast Delivery</h3>
+      <p>All Karachi delivery within 24 hours! Safely packaged, handled with care. Order from home, receive at your doorstep instantly.</p>
+      <div class="card-accent"></div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="about-card">
+      <div class="about-icon">
+        <i class="fas fa-crown"></i>
+      </div>
+      <div class="card-number">04</div>
+      <h3>Premium Quality</h3>
+      <p>Pakistani traditional + Chinese imported + Birthday supplies. Widest range, unbeatable prices, guaranteed satisfaction every time!</p>
+      <div class="card-accent"></div>
+    </div>
   </div>
 </section>
-
 <!-- CERTIFICATES -->
 <section id="certificates">
   <div class="section-header">
@@ -156,34 +190,174 @@
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES SECTION -->
 <section id="services">
   <div class="section-header">
     <span class="section-tag">What We Offer</span>
-    <h2>Our <span class="red">Services</span></h2>
+    <h2 class="section-title">Our <span class="red">Services</span></h2>
   </div>
+  
   <div class="services-grid">
-    <div class="service-card"><div class="service-num">01</div><i class="fas fa-rocket service-ico"></i><h3>Fireworks Display</h3><p>Professional aerial fireworks shows for weddings, corporate events, national celebrations, and private parties.</p></div>
-    <div class="service-card"><div class="service-num">02</div><i class="fas fa-birthday-cake service-ico"></i><h3>Birthday Decoration</h3><p>Complete birthday party planning with balloons, color smoke, party poppers, and custom decorations.</p></div>
-    <div class="service-card"><div class="service-num">03</div><i class="fas fa-ring service-ico"></i><h3>Wedding Events</h3><p>Spectacular fireworks and lighting for your special wedding night that create lifelong memories.</p></div>
-    <div class="service-card"><div class="service-num">04</div><i class="fas fa-building service-ico"></i><h3>Corporate Events</h3><p>Grand opening ceremonies, product launches, and corporate celebrations with professional pyrotechnic setups.</p></div>
-    <div class="service-card"><div class="service-num">05</div><i class="fas fa-truck service-ico"></i><h3>Home Delivery</h3><p>Fast, safe delivery across all areas of Karachi. Order online and receive at your doorstep.</p></div>
-    <div class="service-card"><div class="service-num">06</div><i class="fas fa-headset service-ico"></i><h3>Consultation</h3><p>Expert advice on choosing the right fireworks for your event, budget, and venue requirements.</p></div>
+    <!-- SERVICE 1 -->
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <h3>Fireworks Display</h3>
+      <p>Professional aerial fireworks shows for weddings, corporate events, national celebrations, and private parties.</p>
+      <div class="card-accent"></div>
+    </div>
+
+    <!-- SERVICE 2 -->
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">
+        <i class="fas fa-birthday-cake"></i>
+      </div>
+      <h3>Birthday Decoration</h3>
+      <p>Complete birthday party planning with balloons, color smoke, party poppers, and custom decorations.</p>
+      <div class="card-accent"></div>
+    </div>
+
+    <!-- SERVICE 3 -->
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">
+        <i class="fas fa-ring"></i>
+      </div>
+      <h3>Wedding Events</h3>
+      <p>Spectacular fireworks and lighting for your special wedding night that create lifelong memories.</p>
+      <div class="card-accent"></div>
+    </div>
+
+    <!-- SERVICE 4 -->
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon">
+        <i class="fas fa-building"></i>
+      </div>
+      <h3>Corporate Events</h3>
+      <p>Grand opening ceremonies, product launches, and corporate celebrations with professional pyrotechnic setups.</p>
+      <div class="card-accent"></div>
+    </div>
+
+    <!-- SERVICE 5 -->
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-icon">
+        <i class="fas fa-truck"></i>
+      </div>
+      <h3>Home Delivery</h3>
+      <p>Fast, safe delivery across all areas of Karachi. Order online and receive at your doorstep.</p>
+      <div class="card-accent"></div>
+    </div>
+
+    <!-- SERVICE 6 -->
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-icon">
+        <i class="fas fa-headset"></i>
+      </div>
+      <h3>Consultation</h3>
+      <p>Expert advice on choosing the right fireworks for your event, budget, and venue requirements.</p>
+      <div class="card-accent"></div>
+    </div>
   </div>
 </section>
-
 <!-- PRODUCTS -->
 <section id="products">
   <div class="section-header">
     <span class="section-tag">Shop Now</span>
     <h2>Our <span class="red">Products</span></h2>
   </div>
-  <div class="products-preview-grid" id="products-preview"></div>
+
+  <div class="products-preview-grid" 
+       style="max-width:1100px;margin:0 auto 38px;display:grid;
+       grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;">
+
+    <!-- PRODUCT 1 -->
+    <div class="prod-card-new">
+      <div class="prod-discount-badge">−28% OFF</div>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Dragong 25 Shoot">
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Aerial Shell · Repeater · China Import</span>
+        <div class="prod-card-name">Dragong 25 Shoot</div>
+        <p class="prod-card-desc">25-shot aerial repeater with dragon-themed bursts.</p>
+        <span class="prod-card-stock">In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 3,500</span>
+          <span class="prod-new-price">Rs. 2,500 PKR</span>
+        </div>
+        <a href="#contact" class="prod-card-btn">Order Now</a>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2 -->
+    <div class="prod-card-new">
+      <div class="prod-discount-badge">−20% OFF</div>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Butterfly Shots">
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Color Fountain</span>
+        <div class="prod-card-name">Butterfly Shots</div>
+        <p class="prod-card-desc">Colorful butterfly fireworks with smooth effects.</p>
+        <span class="prod-card-stock">In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 1,500</span>
+          <span class="prod-new-price">Rs. 1,200 PKR</span>
+        </div>
+        <a href="#contact" class="prod-card-btn">Order Now</a>
+      </div>
+    </div>
+
+    <!-- PRODUCT 3 -->
+    <div class="prod-card-new">
+      <div class="prod-discount-badge">−15% OFF</div>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Thunder Bomb">
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Sound Crackers</span>
+        <div class="prod-card-name">Thunder Bomb</div>
+        <p class="prod-card-desc">Loud explosive sound crackers for events.</p>
+        <span class="prod-card-stock">In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 2,000</span>
+          <span class="prod-new-price">Rs. 1,700 PKR</span>
+        </div>
+        <a href="#contact" class="prod-card-btn">Order Now</a>
+      </div>
+    </div>
+
+    <!-- PRODUCT 4 -->
+    <div class="prod-card-new">
+      <div class="prod-discount-badge">−25% OFF</div>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Sky Rocket">
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Rocket Fireworks</span>
+        <div class="prod-card-name">Sky Rocket</div>
+        <p class="prod-card-desc">High flying rockets with colorful explosions.</p>
+        <span class="prod-card-stock">In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 2,800</span>
+          <span class="prod-new-price">Rs. 2,100 PKR</span>
+        </div>
+        <a href="#contact" class="prod-card-btn">Order Now</a>
+      </div>
+    </div>
+
+  </div>
+
   <div class="see-all-wrap">
-    <a href="products.html" class="btn-see-all"><i class="fas fa-th-large"></i> See All Products</a>
+    <a href="products.html" class="btn-see-all">See All Products</a>
   </div>
 </section>
-
 <!-- REVIEWS -->
 <section id="reviews">
   <div class="section-header">
@@ -246,22 +420,50 @@
 <!-- FOOTER -->
 <footer id="footer">
   <div class="footer-inner">
-    <div class="footer-logo">
+    <div class="footer-brand">
       <img src="di-logo.png" alt="DI Fireworks" class="footer-logo-img"/>
-      <p>Dormet International Fireworks &amp; Event Planners</p>
+      <div class="footer-brand-name">Dormet International Fireworks &amp; Event Planners</div>
+      <div class="footer-brand-tagline">✦ Lighting Up Pakistan Since Day One ✦</div>
     </div>
-    <div class="footer-links">
-      <a href="#home">Home</a><a href="#about">About</a><a href="#certificates">Certificates</a>
-      <a href="#services">Services</a><a href="#products">Products</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
-    </div>
-    <div class="footer-social">
-      <a href="#" class="soc-icon"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="soc-icon"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="soc-icon"><i class="fab fa-whatsapp"></i></a>
-      <a href="#" class="soc-icon"><i class="fab fa-youtube"></i></a>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <nav class="footer-nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About Us</a>
+          <a href="#certificates">Certificates</a>
+          <a href="#services">Services</a>
+          <a href="#products">Products</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact Us</div>
+        <div class="footer-contact-list">
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span><a href="mailto:dormetfireworks@gmail.com">dormetfireworks@gmail.com</a></span></div>
+          <div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span><a href="https://wa.me/923000000000">+92 300 0000000</a></span></div>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Karachi, Sindh, Pakistan<br/>All Areas Delivery Available</span></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon–Sat: 9 AM – 9 PM<br/>Sun: 10 AM – 6 PM</span></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Follow Us</div>
+        <div class="footer-social-grid">
+          <a href="#" class="footer-social-item fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+          <a href="#" class="footer-social-item ig"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="#" class="footer-social-item wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="#" class="footer-social-item yt"><i class="fab fa-youtube"></i> YouTube</a>
+        </div>
+      </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <span id="year"></span> Dormet International Fireworks &amp; Event Planners. All Rights Reserved. | Government Registered | Karachi, Pakistan</p>
+      <p class="footer-bottom-copy">&copy; <span id="year"></span> Dormet International Fireworks &amp; Event Planners. All Rights Reserved.</p>
+      <div class="footer-bottom-badges">
+        <span class="footer-badge"><i class="fas fa-shield-alt"></i> Govt. Registered</span>
+        <span class="footer-badge"><i class="fas fa-truck"></i> Karachi Delivery</span>
+        <span class="footer-badge"><i class="fas fa-map-marker-alt"></i> Karachi, Pakistan</span>
+      </div>
     </div>
   </div>
 </footer>
@@ -296,6 +498,29 @@
   </div>
 </div>
 
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    document.getElementById('theme-icon').className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    updateMobileThemeBtn();
+  }
+  function updateMobileThemeBtn() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const mIcon  = document.getElementById('theme-icon-m');
+    const mLabel = document.getElementById('theme-label-m');
+    if (mIcon)  mIcon.className  = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    if (mLabel) mLabel.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.getElementById('theme-icon').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    document.getElementById('year').textContent = new Date().getFullYear();
+    updateMobileThemeBtn();
+  });
+</script>
 <script src="script.js"></script>
 </body>
 </html>

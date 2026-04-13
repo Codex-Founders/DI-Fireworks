@@ -1,92 +1,356 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Products | DI.Fireworks</title>
   <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="products.css"/>
+  <link rel="stylesheet" href="products.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+  </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav id="navbar">
-  <div class="nav-logo">
-    <a href="index.html" class="logo-link">
-      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
-    </a>
+  <div class="nav-pill">
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-logo">
+      <a href="#home" class="logo-link">
+        <img src="di-logo.png" alt="DI Fireworks" class="nav-logo-img"/>
+      </a>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"         class="nav-link active">Home</a></li>
+      <li><a href="index.html#about"        class="nav-link">About</a></li>
+      <li><a href="index.html#certificates" class="nav-link">Certificates</a></li>
+      <li><a href="index.html#services"     class="nav-link">Services</a></li>
+      <li><a href="index.html#products"     class="nav-link">Products</a></li>
+      <li><a href="index.html#reviews"      class="nav-link">Reviews</a></li>
+      <li><a href="index.html#contact"      class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-actions">
+      <a href="tel:+923000000000" class="icon-btn" title="Call Us"><i class="fas fa-phone-alt"></i></a>
+      <a href="#" class="icon-btn gold" title="Our Location" onclick="openMap();return false;"><i class="fas fa-map-marker-alt"></i></a>
+      <button id="sound-toggle" class="icon-btn sound-btn" title="Toggle Sound"><i class="fas fa-volume-xmark" id="sound-icon"></i></button>
+      <button class="theme-btn" id="theme-toggle" title="Toggle Theme" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="theme-icon"></i>
+      </button>
+    </div>
   </div>
-  <div class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="index.html#home" class="nav-link">Home</a></li>
-    <li><a href="index.html#about" class="nav-link">About</a></li>
-    <li><a href="index.html#services" class="nav-link">Services</a></li>
-    <li><a href="products.html" class="nav-link active">Products</a></li>
-    <li><a href="index.html#reviews" class="nav-link">Reviews</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a href="index.html#contact" class="btn-contact"><i class="fas fa-phone-alt"></i> Contact Us</a>
-    <a href="#" class="btn-map" onclick="alert('Head office: Karachi, Pakistan')"><i class="fas fa-map-marker-alt"></i></a>
-  </div>
-  <div class="mobile-logo">
-    <a href="index.html" class="logo-link">
-      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
-    </a>
+
+  <!-- MOBILE DROPDOWN MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a href="#home"         class="nav-link mobile-link active">Home</a></li>
+      <li><a href="#about"        class="nav-link mobile-link">About</a></li>
+      <li><a href="#certificates" class="nav-link mobile-link">Certificates</a></li>
+      <li><a href="#services"     class="nav-link mobile-link">Services</a></li>
+      <li><a href="#products"     class="nav-link mobile-link">Products</a></li>
+      <li><a href="#reviews"      class="nav-link mobile-link">Reviews</a></li>
+      <li><a href="#contact"      class="nav-link mobile-link">Contact</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="tel:+923000000000" class="mobile-action-btn" title="Call Us">
+        <i class="fas fa-phone-alt"></i><span>Call Us</span>
+      </a>
+      <a href="#" class="mobile-action-btn gold" title="Our Location" onclick="openMap();closeMobileMenu();return false;">
+        <i class="fas fa-map-marker-alt"></i><span>Location</span>
+      </a>
+      <button id="sound-toggle-m" class="mobile-action-btn" title="Toggle Sound" onclick="document.getElementById('sound-toggle').click();updateMobileSoundBtn()">
+        <i class="fas fa-volume-xmark" id="sound-icon-m"></i><span id="sound-label-m">Sound</span>
+      </button>
+      <button id="theme-toggle-m" class="mobile-action-btn theme" title="Toggle Theme" onclick="toggleTheme();updateMobileThemeBtn()">
+        <i class="fas fa-moon" id="theme-icon-m"></i><span id="theme-label-m">Light Mode</span>
+      </button>
+    </div>
   </div>
 </nav>
-
 <!-- PAGE HEADER -->
 <div class="page-header">
-  <h1>All <span class="red">Products</span></h1>
-  <p>Premium Fireworks & Birthday Supplies | Karachi Delivery Available</p>
+  <h1>Our <span>Products</span></h1>
+  <p>Premium Fireworks & Birthday Supplies · Karachi Delivery Available</p>
 </div>
 
-<!-- CATEGORY TABS -->
-<div class="cat-tabs-wrap">
-  <div class="cat-tabs">
-    <button class="cat-tab active" data-cat="pakistani" onclick="switchCat('pakistani')">
-      <i class="fas fa-flag"></i> Pakistani Products
-    </button>
-    <button class="cat-tab" data-cat="china" onclick="switchCat('china')">
-      <i class="fas fa-globe-asia"></i> China Products
-    </button>
-    <button class="cat-tab" data-cat="birthday" onclick="switchCat('birthday')">
-      <i class="fas fa-birthday-cake"></i> Birthday Items
-    </button>
+<!-- PRODUCTS SECTION -->
+<section class="products-section">
+  <div class="products-grid">
+    
+    <!-- PRODUCT 1 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">20% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Premium Firework Box"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Pakistani</span>
+        <h3 class="prod-card-name">Premium Firework Box</h3>
+        <p class="prod-card-desc">High-quality fireworks box with 20+ items perfect for celebrations.</p>
+        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 5,000</span>
+          <span class="prod-new-price">Rs. 4,000<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">15% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Sky Shooter Pro"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">China</span>
+        <h3 class="prod-card-name">Sky Shooter Pro</h3>
+        <p class="prod-card-desc">Professional grade sky shooter with 50m height reach.</p>
+        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 3,500</span>
+          <span class="prod-new-price">Rs. 2,975<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 3 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">25% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Birthday Sparkle Pack"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Birthday</span>
+        <h3 class="prod-card-name">Birthday Sparkle Pack</h3>
+        <p class="prod-card-desc">Complete birthday celebration pack with sparklers and candles.</p>
+        <span class="prod-card-stock low"><i class="fas fa-exclamation-circle"></i> Low Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 2,000</span>
+          <span class="prod-new-price">Rs. 1,500<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 4 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">10% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Golden Fountain"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Pakistani</span>
+        <h3 class="prod-card-name">Golden Fountain</h3>
+        <p class="prod-card-desc">Beautiful golden fountain firework with 2-minute duration.</p>
+        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 1,500</span>
+          <span class="prod-new-price">Rs. 1,350<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 5 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">30% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Mega Celebration Kit"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">China</span>
+        <h3 class="prod-card-name">Mega Celebration Kit</h3>
+        <p class="prod-card-desc">Ultimate celebration kit with 50+ premium fireworks.</p>
+        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 10,000</span>
+          <span class="prod-new-price">Rs. 7,000<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 6 -->
+    <div class="prod-card-new">
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Party Popper Set"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Birthday</span>
+        <h3 class="prod-card-name">Party Popper Set</h3>
+        <p class="prod-card-desc">10 colorful party poppers perfect for any celebration.</p>
+        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 800</span>
+          <span class="prod-new-price">Rs. 800<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 7 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">18% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Rocket Launcher Pack"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Pakistani</span>
+        <h3 class="prod-card-name">Rocket Launcher Pack</h3>
+        <p class="prod-card-desc">12 premium rockets with colorful explosions.</p>
+        <span class="prod-card-stock out"><i class="fas fa-times-circle"></i> Out of Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 4,500</span>
+          <span class="prod-new-price">Rs. 3,690<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 8 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">22% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Color Smoke Bombs"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">China</span>
+        <h3 class="prod-card-name">Color Smoke Bombs</h3>
+        <p class="prod-card-desc">5 colorful smoke bombs for photography and events.</p>
+        <span class="prod-card-stock low"><i class="fas fa-exclamation-circle"></i> Low Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 2,500</span>
+          <span class="prod-new-price">Rs. 1,950<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 9 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">12% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Birthday Candle Set"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Birthday</span>
+        <h3 class="prod-card-name">Birthday Candle Set</h3>
+        <p class="prod-card-desc">Magic relighting candles with sparkler fountain.</p>
+        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 1,200</span>
+          <span class="prod-new-price">Rs. 1,056<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 10 -->
+    <div class="prod-card-new">
+      <span class="prod-discount-badge">35% OFF</span>
+      <div class="prod-img-area">
+        <img src="1 product.png" alt="Wedding Special Combo"/>
+      </div>
+      <div class="prod-card-body">
+        <span class="prod-card-sub">Pakistani</span>
+        <h3 class="prod-card-name">Wedding Special Combo</h3>
+        <p class="prod-card-desc">Complete wedding fireworks package with 30+ items.</p>
+        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+        <div class="prod-card-prices">
+          <span class="prod-old-price">Rs. 15,000</span>
+          <span class="prod-new-price">Rs. 9,750<span class="prod-pkr">PKR</span></span>
+        </div>
+        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+    </div>
+
   </div>
-</div>
+</section>
 
-<!-- SUBCATEGORY FILTER -->
-<div class="subcat-wrap">
-  <div class="subcat-pills" id="subcat-pills">
-    <!-- filled by JS -->
-  </div>
-</div>
-
-<!-- PRODUCTS GRID -->
-<div class="products-main-wrap">
-  <div class="products-main-grid" id="products-main-grid">
-    <!-- filled by JS -->
-  </div>
-</div>
-
-<!-- FOOTER -->
+<!-- ===== FOOTER ===== -->
 <footer id="footer">
   <div class="footer-inner">
-    <div class="footer-logo">
-      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
-      <p>Dormet International Fireworks & Event Planners</p>
+    <div class="footer-brand">
+      <img src="di-logo.png" alt="DI Fireworks" class="footer-logo-img"/>
+      <div class="footer-brand-name">Dormet International Fireworks &amp; Event Planners</div>
+      <div class="footer-brand-tagline">✦ Lighting Up Pakistan Since Day One ✦</div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <nav class="footer-nav-links">
+          <a href="index.html#home">Home</a>
+          <a href="index.html#about">About Us</a>
+          <a href="index.html#certificates">Certificates</a>
+          <a href="index.html#services">Services</a>
+          <a href="products.html">Products</a>
+          <a href="index.html#reviews">Reviews</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact Us</div>
+        <div class="footer-contact-list">
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span><a href="mailto:dormetfireworks@gmail.com">dormetfireworks@gmail.com</a></span></div>
+          <div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span><a href="https://wa.me/923000000000">+92 300 0000000</a></span></div>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Karachi, Sindh, Pakistan<br/>All Areas Delivery Available</span></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon–Sat: 9 AM – 9 PM<br/>Sun: 10 AM – 6 PM</span></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Follow Us</div>
+        <div class="footer-social-grid">
+          <a href="#" class="footer-social-item fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+          <a href="#" class="footer-social-item ig"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="#" class="footer-social-item wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="#" class="footer-social-item yt"><i class="fab fa-youtube"></i> YouTube</a>
+        </div>
+      </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <span id="year2"></span> Dormet International Fireworks & Event Planners. All Rights Reserved. | Government Registered | Karachi, Pakistan</p>
+      <p class="footer-bottom-copy">&copy; <span id="year2"></span> Dormet International Fireworks &amp; Event Planners. All Rights Reserved.</p>
+      <div class="footer-bottom-badges">
+        <span class="footer-badge"><i class="fas fa-shield-alt"></i> Govt. Registered</span>
+        <span class="footer-badge"><i class="fas fa-truck"></i> Karachi Delivery</span>
+        <span class="footer-badge"><i class="fas fa-map-marker-alt"></i> Karachi, Pakistan</span>
+      </div>
     </div>
   </div>
 </footer>
 
+<!-- MAP MODAL -->
+<div id="map-modal" class="modal-overlay">
+  <div class="modal-box map-modal-box">
+    <button class="modal-close" onclick="closeMap()"><i class="fas fa-times"></i></button>
+    <h3><i class="fas fa-map-marker-alt"></i> Our Location – Karachi</h3>
+    <div class="map-embed">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462960.6983946719!2d66.99052374999999!3d24.860966150000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e06651d4bbf%3A0x9cf92f44555a0c23!2sKarachi%2C%20Karachi%20City%2C%20Sindh!5e0!3m2!1sen!2spk!4v1700000000000!5m2!1sen!2spk" width="100%" height="350" style="border:0;border-radius:8px;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- THEME + MAP HELPERS -->
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const newTheme = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", newTheme);
+  }
+  function openMap()       { document.getElementById("map-modal").style.display = "flex"; }
+  function closeMap()      { document.getElementById("map-modal").style.display = "none"; }
+  
+  document.getElementById("map-modal").addEventListener("click", e => {
+    if (e.target === e.currentTarget) closeMap();
+  });
+  
+  // Set current year
+  document.getElementById("year2").textContent = new Date().getFullYear();
+</script>
 <script src="products.js"></script>
 </body>
 </html>
