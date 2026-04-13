@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DI.Fireworks | Dormet International Fireworks & Event Planners</title>
   <link rel="stylesheet" href="style.css"/>
@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<!-- ===== INTRO ANIMATION ===== -->
+<!-- INTRO -->
 <div id="intro-overlay">
   <canvas id="fireworks-canvas"></canvas>
   <div id="intro-logo-wrap">
@@ -18,232 +18,187 @@
       <div class="spinner-ring r1"></div>
       <div class="spinner-ring r2"></div>
       <div class="spinner-ring r3"></div>
-      <div id="intro-logo-text">
-        <span class="di">DI</span>
-        <span class="dot">.</span>
-        <span class="fw">Fireworks</span>
-      </div>
+      <img src="di-logo.png" alt="DI Fireworks Logo" id="intro-logo-img"/>
     </div>
-    <p id="intro-tagline">Dormet International Fireworks & Event Planners</p>
+    <p id="intro-tagline">Dormet International Fireworks &amp; Event Planners</p>
   </div>
 </div>
 
-<!-- ===== NAVBAR ===== -->
+<!-- NAVBAR -->
 <nav id="navbar">
-  <div class="nav-logo">
-    <a href="#home" class="logo-link">
-      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
-    </a>
+  <div class="nav-pill">
+
+    <!-- LEFT: Hamburger (mobile) -->
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+
+    <!-- CENTER: Logo -->
+    <div class="nav-logo">
+      <a href="#home" class="logo-link">
+        <img src="di-logo.png" alt="DI Fireworks" class="nav-logo-img"/>
+      </a>
+    </div>
+
+    <!-- DESKTOP: Nav links (hidden on mobile, shown inside hamburger menu) -->
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home"         class="nav-link active">Home</a></li>
+      <li><a href="#about"        class="nav-link">About</a></li>
+      <li><a href="#certificates" class="nav-link">Certificates</a></li>
+      <li><a href="#services"     class="nav-link">Services</a></li>
+      <li><a href="#products"     class="nav-link">Products</a></li>
+      <li><a href="#reviews"      class="nav-link">Reviews</a></li>
+      <li><a href="#contact"      class="nav-link">Contact</a></li>
+    </ul>
+
+    <!-- DESKTOP: Action buttons -->
+    <div class="nav-actions" id="nav-actions">
+      <a href="tel:+923000000000" class="icon-btn" title="Call Us"><i class="fas fa-phone-alt"></i></a>
+      <a href="#" class="icon-btn gold" title="Our Location" onclick="openMap();return false;"><i class="fas fa-map-marker-alt"></i></a>
+      <button id="sound-toggle" class="icon-btn sound-btn" title="Toggle Sound"><i class="fas fa-volume-xmark" id="sound-icon"></i></button>
+      <button class="theme-btn" id="theme-toggle" title="Toggle Theme"><i class="fas fa-sun" id="theme-icon"></i></button>
+    </div>
+
   </div>
-  <div class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#home" class="nav-link active">Home</a></li>
-    <li><a href="#about" class="nav-link">About</a></li>
-    <li><a href="#certificates" class="nav-link">Certificates</a></li>
-    <li><a href="#services" class="nav-link">Services</a></li>
-    <li><a href="#products" class="nav-link">Products</a></li>
-    <li><a href="#reviews" class="nav-link">Reviews</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a href="#contact" class="btn-contact"><i class="fas fa-phone-alt"></i> Contact Us</a>
-    <a href="#home" class="btn-map" title="Our Location" onclick="openMap()"><i class="fas fa-map-marker-alt"></i></a>
-  </div>
-  <div class="mobile-logo">
-    <a href="#home" class="logo-link">
-      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
-    </a>
+
+  <!-- MOBILE DROPDOWN MENU (links + action buttons together) -->
+  <div class="mobile-menu" id="mobile-menu">
+    <ul class="mobile-nav-links">
+      <li><a href="#home"         class="nav-link mobile-link active">Home</a></li>
+      <li><a href="#about"        class="nav-link mobile-link">About</a></li>
+      <li><a href="#certificates" class="nav-link mobile-link">Certificates</a></li>
+      <li><a href="#services"     class="nav-link mobile-link">Services</a></li>
+      <li><a href="#products"     class="nav-link mobile-link">Products</a></li>
+      <li><a href="#reviews"      class="nav-link mobile-link">Reviews</a></li>
+      <li><a href="#contact"      class="nav-link mobile-link">Contact</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="tel:+923000000000" class="mobile-action-btn" title="Call Us">
+        <i class="fas fa-phone-alt"></i><span>Call Us</span>
+      </a>
+      <a href="#" class="mobile-action-btn gold" title="Our Location" onclick="openMap();closeMobileMenu();return false;">
+        <i class="fas fa-map-marker-alt"></i><span>Location</span>
+      </a>
+      <button id="sound-toggle-m" class="mobile-action-btn" title="Toggle Sound" onclick="document.getElementById('sound-toggle').click();updateMobileSoundBtn()">
+        <i class="fas fa-volume-xmark" id="sound-icon-m"></i><span id="sound-label-m">Sound</span>
+      </button>
+      <button id="theme-toggle-m" class="mobile-action-btn theme" title="Toggle Theme" onclick="document.getElementById('theme-toggle').click();updateMobileThemeBtn()">
+        <i class="fas fa-sun" id="theme-icon-m"></i><span id="theme-label-m">Theme</span>
+      </button>
+    </div>
   </div>
 </nav>
 
-<!-- ===== HOME ===== -->
+<!-- HOME -->
 <section id="home">
   <div class="home-hero">
     <canvas id="hero-canvas"></canvas>
-    <div class="pakistan-map-container">
-      <svg class="pak-map" viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <path class="pak-path" d="M180,30 L220,20 L260,35 L300,25 L340,45 L370,30 L400,60 L420,90 L410,130 L430,160 L420,200 L400,220 L380,250 L360,280 L340,310 L310,330 L280,350 L260,370 L240,360 L220,340 L200,320 L180,300 L160,280 L140,260 L120,240 L100,210 L80,190 L70,160 L60,130 L80,100 L100,70 L130,50 Z" filter="url(#glow)"/>
-        <text x="220" y="195" class="map-text" text-anchor="middle">All Over Karachi</text>
-        <text x="220" y="218" class="map-subtext" text-anchor="middle">Business Available</text>
-        <!-- Karachi dot -->
-        <circle cx="165" cy="320" r="6" class="city-dot pulse-dot"/>
-        <text x="185" y="323" class="city-label">Clifton</text>
-        <!-- Lahore dot -->
-        <circle cx="250" cy="195" r="5" class="city-dot"/>
-        <text x="260" y="198" class="city-label">Saddar</text>
-        <!-- Islamabad dot -->
-        <circle cx="265" cy="140" r="5" class="city-dot"/>
-        <text x="275" y="143" class="city-label">DHA</text>
-      </svg>
-    </div>
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span class="title-line1">Dormet International</span>
-        <span class="title-line2">Fireworks & Event Planners</span>
-      </h1>
-      <p class="hero-sub">Government Registered | All Karachi Delivery | Premium Quality</p>
-      <div class="hero-badges">
-        <span class="badge"><i class="fas fa-shield-alt"></i> Govt. Registered</span>
-        <span class="badge"><i class="fas fa-truck"></i> Karachi Delivery</span>
-        <span class="badge"><i class="fas fa-star"></i> Premium Quality</span>
+    <div class="star-field" id="star-field"></div>
+    <div class="hero-body">
+      <div class="hero-glass">
+        <div class="hero-text">
+          <div class="hc-tag">✦ Premium Fireworks &amp; Events ✦</div>
+          <h1 class="hero-title">
+            <span class="ht-line1">Dormet</span>
+            <span class="ht-line2">International</span>
+            <span class="ht-line3">Fireworks <em>&amp;</em></span>
+            <span class="ht-line4">Event Planners</span>
+          </h1>
+          <p class="hero-sub">Government Registered · All Karachi Delivery · Premium Quality</p>
+          <div class="hero-badges">
+            <span class="badge"><i class="fas fa-shield-alt"></i> Govt. Registered</span>
+            <span class="badge"><i class="fas fa-truck"></i> Karachi Delivery</span>
+            <span class="badge"><i class="fas fa-star"></i> Premium Quality</span>
+          </div>
+          <div class="hero-btns">
+            <a href="#products" class="btn-explore"><i class="fas fa-rocket"></i><span>Explore Products</span></a>
+            <a href="#contact"  class="btn-plan"><i class="fas fa-calendar-star"></i><span>Plan Your Event</span></a>
+          </div>
+        </div>
+        <div class="fw-img-wrap">
+          <div class="fw-img-glow"></div>
+          <img src="fireworks-products.png" alt="Premium Fireworks" class="fw-products-img"/>
+          <span class="fw-spark s1"></span>
+          <span class="fw-spark s2"></span>
+          <span class="fw-spark s3"></span>
+          <span class="fw-spark s4"></span>
+        </div>
       </div>
-      <a href="#products" class="btn-explore">Explore Products <i class="fas fa-chevron-down"></i></a>
     </div>
   </div>
 </section>
 
-<!-- ===== ABOUT ===== -->
+<!-- ABOUT -->
 <section id="about">
   <div class="section-header">
     <span class="section-tag">Who We Are</span>
     <h2>About <span class="red">DI.Fireworks</span></h2>
   </div>
   <div class="about-grid">
-    <div class="about-card">
-      <div class="about-icon"><i class="fas fa-fire"></i></div>
-      <h3>Our Story</h3>
-      <p>Dormet International Fireworks & Event Planners has been lighting up the skies of Pakistan with premium fireworks and unforgettable event experiences. Based in Karachi, we serve customers all across Pakistan.</p>
-    </div>
-    <div class="about-card">
-      <div class="about-icon"><i class="fas fa-certificate"></i></div>
-      <h3>Government Registered</h3>
-      <p>We are a fully government registered company, ensuring every product we sell meets safety and quality standards. Our license guarantees you're buying from a legitimate, trusted source.</p>
-    </div>
-    <div class="about-card">
-      <div class="about-icon"><i class="fas fa-map-marker-alt"></i></div>
-      <h3>All Karachi Delivery</h3>
-      <p>We provide fast, reliable delivery across all areas of Karachi. Order from the comfort of your home and receive premium fireworks at your doorstep, safely packaged.</p>
-    </div>
-    <div class="about-card">
-      <div class="about-icon"><i class="fas fa-trophy"></i></div>
-      <h3>Premium Products</h3>
-      <p>From Pakistani-made traditional fireworks to imported Chinese fireworks and birthday party supplies — we carry the widest range of quality products for every celebration.</p>
-    </div>
+    <div class="about-card"><div class="about-icon"><i class="fas fa-fire"></i></div><h3>Our Story</h3><p>Dormet International Fireworks &amp; Event Planners has been lighting up the skies of Pakistan. Based in Karachi, we serve customers all across Pakistan.</p></div>
+    <div class="about-card"><div class="about-icon"><i class="fas fa-certificate"></i></div><h3>Government Registered</h3><p>Fully government registered company. Every product meets safety and quality standards. Buy from a legitimate, trusted source.</p></div>
+    <div class="about-card"><div class="about-icon"><i class="fas fa-map-marker-alt"></i></div><h3>All Karachi Delivery</h3><p>Fast, reliable delivery across all areas of Karachi. Order from home and receive premium fireworks safely packaged at your doorstep.</p></div>
+    <div class="about-card"><div class="about-icon"><i class="fas fa-trophy"></i></div><h3>Premium Products</h3><p>Pakistani traditional fireworks, imported Chinese fireworks, and birthday party supplies — the widest range for every celebration.</p></div>
   </div>
 </section>
 
-<!-- ===== CERTIFICATES ===== -->
+<!-- CERTIFICATES -->
 <section id="certificates">
   <div class="section-header">
     <span class="section-tag">Official Documentation</span>
     <h2>Our <span class="red">Certificates</span></h2>
   </div>
   <div class="cert-grid">
-    <div class="cert-card">
-      <div class="cert-icon"><i class="fas fa-id-card"></i></div>
-      <div class="cert-ribbon">Official</div>
-      <h3>Business Registration</h3>
-      <p>Registered under the Government of Pakistan as an authorized fireworks dealer and event planner.</p>
-      <span class="cert-num">Reg# DI-FW-2024-001</span>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
-      <div class="cert-ribbon">Verified</div>
-      <h3>Safety Compliance</h3>
-      <p>All products meet Pakistan's safety regulations for fireworks handling, storage, and distribution.</p>
-      <span class="cert-num">Cert# SC-2024-PKF</span>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon"><i class="fas fa-import"></i></div>
-      <div class="cert-ribbon">Licensed</div>
-      <h3>Import License</h3>
-      <p>Authorized importer of fireworks from China and international markets under Pakistan Trade Authority.</p>
-      <span class="cert-num">Import# IL-2024-KHI</span>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon"><i class="fas fa-award"></i></div>
-      <div class="cert-ribbon">Awarded</div>
-      <h3>Quality Assurance</h3>
-      <p>ISO-compliant quality assurance certificate for storage and delivery of pyrotechnic products.</p>
-      <span class="cert-num">QA# ISO-FW-2024</span>
-    </div>
+    <div class="cert-card"><div class="cert-icon"><i class="fas fa-id-card"></i></div><div class="cert-ribbon">Official</div><h3>Business Registration</h3><p>Registered under the Government of Pakistan as an authorized fireworks dealer and event planner.</p><span class="cert-num">Reg# DI-FW-2024-001</span></div>
+    <div class="cert-card"><div class="cert-icon"><i class="fas fa-shield-alt"></i></div><div class="cert-ribbon">Verified</div><h3>Safety Compliance</h3><p>All products meet Pakistan's safety regulations for fireworks handling, storage, and distribution.</p><span class="cert-num">Cert# SC-2024-PKF</span></div>
+    <div class="cert-card"><div class="cert-icon"><i class="fas fa-file-import"></i></div><div class="cert-ribbon">Licensed</div><h3>Import License</h3><p>Authorized importer of fireworks from China and international markets under Pakistan Trade Authority.</p><span class="cert-num">Import# IL-2024-KHI</span></div>
+    <div class="cert-card"><div class="cert-icon"><i class="fas fa-award"></i></div><div class="cert-ribbon">Awarded</div><h3>Quality Assurance</h3><p>ISO-compliant quality assurance certificate for storage and delivery of pyrotechnic products.</p><span class="cert-num">QA# ISO-FW-2024</span></div>
   </div>
 </section>
 
-<!-- ===== SERVICES ===== -->
+<!-- SERVICES -->
 <section id="services">
   <div class="section-header">
     <span class="section-tag">What We Offer</span>
     <h2>Our <span class="red">Services</span></h2>
   </div>
   <div class="services-grid">
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <i class="fas fa-rocket service-ico"></i>
-      <h3>Fireworks Display</h3>
-      <p>Professional aerial fireworks shows for weddings, corporate events, national celebrations, and private parties.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">02</div>
-      <i class="fas fa-birthday-cake service-ico"></i>
-      <h3>Birthday Decoration</h3>
-      <p>Complete birthday party planning with balloons, color smoke, party poppers, and custom decorations.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <i class="fas fa-ring service-ico"></i>
-      <h3>Wedding Events</h3>
-      <p>Spectacular fireworks and lighting arrangements for your special wedding night that create lifelong memories.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">04</div>
-      <i class="fas fa-building service-ico"></i>
-      <h3>Corporate Events</h3>
-      <p>Grand opening ceremonies, product launches, and corporate celebrations with professional pyrotechnic setups.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">05</div>
-      <i class="fas fa-truck service-ico"></i>
-      <h3>Home Delivery</h3>
-      <p>Fast, safe delivery across all areas of Karachi. Order online and receive at your doorstep.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">06</div>
-      <i class="fas fa-headset service-ico"></i>
-      <h3>Consultation</h3>
-      <p>Expert advice on choosing the right fireworks for your event, budget, and venue requirements.</p>
-    </div>
+    <div class="service-card"><div class="service-num">01</div><i class="fas fa-rocket service-ico"></i><h3>Fireworks Display</h3><p>Professional aerial fireworks shows for weddings, corporate events, national celebrations, and private parties.</p></div>
+    <div class="service-card"><div class="service-num">02</div><i class="fas fa-birthday-cake service-ico"></i><h3>Birthday Decoration</h3><p>Complete birthday party planning with balloons, color smoke, party poppers, and custom decorations.</p></div>
+    <div class="service-card"><div class="service-num">03</div><i class="fas fa-ring service-ico"></i><h3>Wedding Events</h3><p>Spectacular fireworks and lighting for your special wedding night that create lifelong memories.</p></div>
+    <div class="service-card"><div class="service-num">04</div><i class="fas fa-building service-ico"></i><h3>Corporate Events</h3><p>Grand opening ceremonies, product launches, and corporate celebrations with professional pyrotechnic setups.</p></div>
+    <div class="service-card"><div class="service-num">05</div><i class="fas fa-truck service-ico"></i><h3>Home Delivery</h3><p>Fast, safe delivery across all areas of Karachi. Order online and receive at your doorstep.</p></div>
+    <div class="service-card"><div class="service-num">06</div><i class="fas fa-headset service-ico"></i><h3>Consultation</h3><p>Expert advice on choosing the right fireworks for your event, budget, and venue requirements.</p></div>
   </div>
 </section>
 
-<!-- ===== PRODUCTS ===== -->
+<!-- PRODUCTS -->
 <section id="products">
   <div class="section-header">
     <span class="section-tag">Shop Now</span>
     <h2>Our <span class="red">Products</span></h2>
   </div>
-  <div class="products-preview-grid" id="products-preview">
-    <!-- Dynamically filled from JS -->
-  </div>
+  <div class="products-preview-grid" id="products-preview"></div>
   <div class="see-all-wrap">
     <a href="products.html" class="btn-see-all"><i class="fas fa-th-large"></i> See All Products</a>
   </div>
 </section>
 
-<!-- ===== REVIEWS ===== -->
+<!-- REVIEWS -->
 <section id="reviews">
   <div class="section-header">
     <span class="section-tag">Customer Love</span>
     <h2>What People <span class="red">Say</span></h2>
   </div>
   <div class="reviews-track-wrap">
-    <div class="reviews-track" id="reviews-track">
-      <!-- Filled by JS -->
-    </div>
+    <div class="reviews-track" id="reviews-track"></div>
   </div>
   <div class="share-review-wrap">
     <button class="btn-share-review" onclick="openReviewModal()"><i class="fas fa-pen"></i> Share Your Review</button>
   </div>
 </section>
 
-<!-- ===== CONTACT ===== -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="section-header">
     <span class="section-tag">Get In Touch</span>
@@ -251,96 +206,36 @@
   </div>
   <div class="contact-grid">
     <div class="contact-info">
-      <div class="info-item">
-        <i class="fas fa-envelope"></i>
-        <div>
-          <h4>Email</h4>
-          <p>dormetfireworks@gmail.com</p>
-        </div>
-      </div>
-      <div class="info-item">
-        <i class="fab fa-whatsapp"></i>
-        <div>
-          <h4>WhatsApp</h4>
-          <p>+92 300 0000000</p>
-        </div>
-      </div>
-      <div class="info-item">
-        <i class="fas fa-map-marker-alt"></i>
-        <div>
-          <h4>Location</h4>
-          <p>Karachi, Sindh, Pakistan<br/>All Karachi Delivery Available</p>
-        </div>
-      </div>
-      <div class="info-item">
-        <i class="fas fa-clock"></i>
-        <div>
-          <h4>Business Hours</h4>
-          <p>Mon – Sat: 9 AM – 9 PM<br/>Sun: 10 AM – 6 PM</p>
-        </div>
-      </div>
+      <div class="info-item"><i class="fas fa-envelope"></i><div><h4>Email</h4><p>dormetfireworks@gmail.com</p></div></div>
+      <div class="info-item"><i class="fab fa-whatsapp"></i><div><h4>WhatsApp</h4><p>+92 300 0000000</p></div></div>
+      <div class="info-item"><i class="fas fa-map-marker-alt"></i><div><h4>Location</h4><p>Karachi, Sindh, Pakistan<br/>All Karachi Delivery Available</p></div></div>
+      <div class="info-item"><i class="fas fa-clock"></i><div><h4>Business Hours</h4><p>Mon – Sat: 9 AM – 9 PM<br/>Sun: 10 AM – 6 PM</p></div></div>
     </div>
     <div class="contact-form">
       <h3>Place Your Order</h3>
       <div class="form-row">
-        <div class="form-group">
-          <label>Full Name *</label>
-          <input type="text" id="c-name" placeholder="Your Name"/>
-        </div>
-        <div class="form-group">
-          <label>Mobile Number *</label>
-          <input type="tel" id="c-mobile" placeholder="+92 3XX XXXXXXX"/>
-        </div>
+        <div class="form-group"><label>Full Name *</label><input type="text" id="c-name" placeholder="Your Name"/></div>
+        <div class="form-group"><label>Mobile Number *</label><input type="tel" id="c-mobile" placeholder="+92 3XX XXXXXXX"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="c-email" placeholder="your@email.com"/>
-        </div>
-        <div class="form-group">
-          <label>Product Name *</label>
-          <input type="text" id="c-product" placeholder="Product Name"/>
-        </div>
+        <div class="form-group"><label>Email</label><input type="email" id="c-email" placeholder="your@email.com"/></div>
+        <div class="form-group"><label>Product Name *</label><input type="text" id="c-product" placeholder="Product Name"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Quantity *</label>
-          <input type="number" id="c-qty" placeholder="1"/>
-        </div>
-        <div class="form-group">
-          <label>House Number</label>
-          <input type="text" id="c-house" placeholder="A-123"/>
-        </div>
+        <div class="form-group"><label>Quantity *</label><input type="number" id="c-qty" placeholder="1"/></div>
+        <div class="form-group"><label>House Number</label><input type="text" id="c-house" placeholder="A-123"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Street No.</label>
-          <input type="text" id="c-street" placeholder="Street 5"/>
-        </div>
-        <div class="form-group">
-          <label>Area</label>
-          <input type="text" id="c-area" placeholder="Gulshan-e-Iqbal"/>
-        </div>
+        <div class="form-group"><label>Street No.</label><input type="text" id="c-street" placeholder="Street 5"/></div>
+        <div class="form-group"><label>Area</label><input type="text" id="c-area" placeholder="Gulshan-e-Iqbal"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Sector / Block</label>
-          <input type="text" id="c-sector" placeholder="Block 3"/>
-        </div>
-        <div class="form-group">
-          <label>City *</label>
-          <input type="text" id="c-city" placeholder="Karachi"/>
-        </div>
+        <div class="form-group"><label>Sector / Block</label><input type="text" id="c-sector" placeholder="Block 3"/></div>
+        <div class="form-group"><label>City *</label><input type="text" id="c-city" placeholder="Karachi"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Postal Code</label>
-          <input type="text" id="c-postal" placeholder="75300"/>
-        </div>
-        <div class="form-group">
-          <label>Full Address *</label>
-          <input type="text" id="c-address" placeholder="Complete address"/>
-        </div>
+        <div class="form-group"><label>Postal Code</label><input type="text" id="c-postal" placeholder="75300"/></div>
+        <div class="form-group"><label>Full Address *</label><input type="text" id="c-address" placeholder="Complete address"/></div>
       </div>
       <button class="btn-submit" onclick="submitOrder()"><i class="fas fa-paper-plane"></i> Submit Order</button>
       <div id="form-msg" class="form-msg"></div>
@@ -348,21 +243,16 @@
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-logo">
-      <span class="logo-di">DI</span><span class="logo-dot">.</span><span class="logo-fw">Fireworks</span>
-      <p>Dormet International Fireworks & Event Planners</p>
+      <img src="di-logo.png" alt="DI Fireworks" class="footer-logo-img"/>
+      <p>Dormet International Fireworks &amp; Event Planners</p>
     </div>
     <div class="footer-links">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#certificates">Certificates</a>
-      <a href="#services">Services</a>
-      <a href="#products">Products</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#contact">Contact</a>
+      <a href="#home">Home</a><a href="#about">About</a><a href="#certificates">Certificates</a>
+      <a href="#services">Services</a><a href="#products">Products</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
     </div>
     <div class="footer-social">
       <a href="#" class="soc-icon"><i class="fab fa-facebook-f"></i></a>
@@ -371,41 +261,31 @@
       <a href="#" class="soc-icon"><i class="fab fa-youtube"></i></a>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <span id="year"></span> Dormet International Fireworks & Event Planners. All Rights Reserved. | Government Registered | Karachi, Pakistan</p>
+      <p>&copy; <span id="year"></span> Dormet International Fireworks &amp; Event Planners. All Rights Reserved. | Government Registered | Karachi, Pakistan</p>
     </div>
   </div>
 </footer>
 
-<!-- ===== REVIEW MODAL ===== -->
+<!-- REVIEW MODAL -->
 <div id="review-modal" class="modal-overlay" style="display:none">
   <div class="modal-box">
     <button class="modal-close" onclick="closeReviewModal()"><i class="fas fa-times"></i></button>
     <h3><i class="fas fa-star"></i> Share Your Review</h3>
     <div class="modal-form">
-      <div class="form-group">
-        <label>Your Name *</label>
-        <input type="text" id="rev-name" placeholder="Muhammad Ali"/>
-      </div>
+      <div class="form-group"><label>Your Name *</label><input type="text" id="rev-name" placeholder="Muhammad Ali"/></div>
       <div class="form-group">
         <label>Star Rating</label>
         <div class="star-picker" id="star-picker">
-          <i class="fas fa-star" data-val="1"></i>
-          <i class="fas fa-star" data-val="2"></i>
-          <i class="fas fa-star" data-val="3"></i>
-          <i class="fas fa-star" data-val="4"></i>
-          <i class="fas fa-star" data-val="5"></i>
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
         </div>
       </div>
-      <div class="form-group">
-        <label>Your Review *</label>
-        <textarea id="rev-text" rows="4" placeholder="Share your experience with DI.Fireworks..."></textarea>
-      </div>
+      <div class="form-group"><label>Your Review *</label><textarea id="rev-text" rows="4" placeholder="Share your experience with DI.Fireworks..."></textarea></div>
       <button class="btn-submit" onclick="postReview()"><i class="fas fa-paper-plane"></i> Post Review</button>
     </div>
   </div>
 </div>
 
-<!-- ===== MAP MODAL ===== -->
+<!-- MAP MODAL -->
 <div id="map-modal" class="modal-overlay" style="display:none">
   <div class="modal-box map-modal-box">
     <button class="modal-close" onclick="closeMap()"><i class="fas fa-times"></i></button>
