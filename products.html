@@ -9,30 +9,160 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    /* ─── CATEGORY TABS ─── */
+    .category-tabs-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 36px 20px 10px;
+    }
+    .cat-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      border: 2px solid var(--gold, #c9a84c);
+      background: transparent;
+      color: var(--gold, #c9a84c);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, transform 0.2s;
+    }
+    .cat-tab:hover { transform: translateY(-2px); }
+    .cat-tab.active {
+      background: var(--gold, #c9a84c);
+      color: #111;
+    }
+    .cat-tab i { font-size: 16px; }
+
+    /* ─── CATEGORY SECTION HEADING ─── */
+    .cat-section-heading {
+      text-align: center;
+      padding: 50px 20px 10px;
+      position: relative;
+    }
+    .cat-section-heading h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(22px, 5vw, 38px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin: 0 0 6px;
+    }
+    .cat-section-heading h2 span { color: var(--gold, #c9a84c); }
+    .cat-section-heading p {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px;
+      opacity: 0.6;
+      margin: 0;
+    }
+    .cat-divider {
+      width: 80px;
+      height: 3px;
+      background: var(--gold, #c9a84c);
+      margin: 14px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ─── SUB-CATEGORY PILLS ─── */
+    .sub-cat-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 22px 20px 10px;
+    }
+    .sub-pill {
+      padding: 6px 18px;
+      border-radius: 30px;
+      border: 1.5px solid rgba(201,168,76,0.45);
+      background: rgba(201,168,76,0.08);
+      color: var(--gold, #c9a84c);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .sub-pill.active,
+    .sub-pill:hover {
+      background: var(--gold, #c9a84c);
+      color: #111;
+    }
+
+    /* ─── CATEGORY BLOCK WRAPPER ─── */
+    .cat-block { display: none; }
+    .cat-block.visible { display: block; }
+
+    /* ─── EXTERNAL MOBILE SOUND BUTTON ─── */
+    #sound-toggle-external {
+      display: none !important;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      max-width: 36px;
+      padding: 0;
+      margin: 0;
+      margin-left: 6px;
+      border-radius: 8px;
+      font-size: 13px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: inherit;
+      flex-shrink: 0;
+      order: 2;
+      transition: background 0.2s, color 0.2s;
+    }
+    #sound-toggle-external:hover,
+    #sound-toggle-external:active {
+      background: rgba(255,255,255,0.08);
+    }
+    @media (max-width: 900px) {
+      #sound-toggle-external {
+        display: flex !important;
+      }
+    }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- ══════════════ NAVBAR ══════════════ -->
 <nav id="navbar">
   <div class="nav-pill">
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
     </div>
+
     <div class="nav-logo">
-      <a href="#home" class="logo-link">
+      <a href="index.html" class="logo-link">
         <img src="di-logo.png" alt="DI Fireworks" class="nav-logo-img"/>
       </a>
     </div>
+
+    <!-- Sound button: right side of logo on mobile, invisible on desktop -->
+    <button id="sound-toggle-external" title="Toggle Sound">
+      <i class="fas fa-volume-xmark" id="sound-icon-external"></i>
+    </button>
+
+    <!-- Desktop links -->
     <ul class="nav-links" id="nav-links">
-      <li><a href="index.html"         class="nav-link active">Home</a></li>
+      <li><a href="index.html"              class="nav-link">Home</a></li>
       <li><a href="index.html#about"        class="nav-link">About</a></li>
       <li><a href="index.html#certificates" class="nav-link">Certificates</a></li>
       <li><a href="index.html#services"     class="nav-link">Services</a></li>
-      <li><a href="index.html#products"     class="nav-link">Products</a></li>
+      <li><a href="products.html"           class="nav-link active">Products</a></li>
       <li><a href="index.html#reviews"      class="nav-link">Reviews</a></li>
       <li><a href="index.html#contact"      class="nav-link">Contact</a></li>
     </ul>
+
+    <!-- Desktop + MOBILE right-side actions -->
     <div class="nav-actions" id="nav-actions">
       <a href="tel:+923000000000" class="icon-btn" title="Call Us"><i class="fas fa-phone-alt"></i></a>
       <a href="#" class="icon-btn gold" title="Our Location" onclick="openMap();return false;"><i class="fas fa-map-marker-alt"></i></a>
@@ -43,16 +173,16 @@
     </div>
   </div>
 
-  <!-- MOBILE DROPDOWN MENU -->
+  <!-- MOBILE DROPDOWN — only nav links -->
   <div class="mobile-menu" id="mobile-menu">
     <ul class="mobile-nav-links">
-      <li><a href="#home"         class="nav-link mobile-link active">Home</a></li>
-      <li><a href="#about"        class="nav-link mobile-link">About</a></li>
-      <li><a href="#certificates" class="nav-link mobile-link">Certificates</a></li>
-      <li><a href="#services"     class="nav-link mobile-link">Services</a></li>
-      <li><a href="#products"     class="nav-link mobile-link">Products</a></li>
-      <li><a href="#reviews"      class="nav-link mobile-link">Reviews</a></li>
-      <li><a href="#contact"      class="nav-link mobile-link">Contact</a></li>
+      <li><a href="index.html"              class="nav-link mobile-link">Home</a></li>
+      <li><a href="index.html#about"        class="nav-link mobile-link">About</a></li>
+      <li><a href="index.html#certificates" class="nav-link mobile-link">Certificates</a></li>
+      <li><a href="index.html#services"     class="nav-link mobile-link">Services</a></li>
+      <li><a href="products.html"           class="nav-link mobile-link active">Products</a></li>
+      <li><a href="index.html#reviews"      class="nav-link mobile-link">Reviews</a></li>
+      <li><a href="index.html#contact"      class="nav-link mobile-link">Contact</a></li>
     </ul>
     <div class="mobile-actions">
       <a href="tel:+923000000000" class="mobile-action-btn" title="Call Us">
@@ -61,218 +191,394 @@
       <a href="#" class="mobile-action-btn gold" title="Our Location" onclick="openMap();closeMobileMenu();return false;">
         <i class="fas fa-map-marker-alt"></i><span>Location</span>
       </a>
-      <button id="sound-toggle-m" class="mobile-action-btn" title="Toggle Sound" onclick="document.getElementById('sound-toggle').click();updateMobileSoundBtn()">
-        <i class="fas fa-volume-xmark" id="sound-icon-m"></i><span id="sound-label-m">Sound</span>
-      </button>
-      <button id="theme-toggle-m" class="mobile-action-btn theme" title="Toggle Theme" onclick="toggleTheme();updateMobileThemeBtn()">
-        <i class="fas fa-moon" id="theme-icon-m"></i><span id="theme-label-m">Light Mode</span>
-      </button>
     </div>
   </div>
 </nav>
-<!-- PAGE HEADER -->
+
+<!-- ══════════════ PAGE HEADER ══════════════ -->
 <div class="page-header">
   <h1>Our <span>Products</span></h1>
   <p>Premium Fireworks & Birthday Supplies · Karachi Delivery Available</p>
 </div>
 
-<!-- PRODUCTS SECTION -->
+<!-- ══════════════ CATEGORY TABS ══════════════ -->
+<div class="category-tabs-wrapper">
+  <button class="cat-tab active" onclick="showCat('all')">
+    <i class="fas fa-th"></i> All Products
+  </button>
+  <button class="cat-tab" onclick="showCat('pakistani')">
+    <i class="fas fa-star-and-crescent"></i> Pakistani
+  </button>
+  <button class="cat-tab" onclick="showCat('chinese')">
+    <i class="fas fa-dragon"></i> Chinese
+  </button>
+  <button class="cat-tab" onclick="showCat('birthday')">
+    <i class="fas fa-birthday-cake"></i> Birthday
+  </button>
+</div>
+
+<!-- ══════════════ PRODUCTS SECTION ══════════════ -->
 <section class="products-section">
-  <div class="products-grid">
-    
-    <!-- PRODUCT 1 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">20% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Premium Firework Box"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Pakistani</span>
-        <h3 class="prod-card-name">Premium Firework Box</h3>
-        <p class="prod-card-desc">High-quality fireworks box with 20+ items perfect for celebrations.</p>
-        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 5,000</span>
-          <span class="prod-new-price">Rs. 4,000<span class="prod-pkr">PKR</span></span>
+
+  <!-- ── ALL PRODUCTS ── -->
+  <div class="cat-block visible" id="block-all">
+    <div class="products-grid">
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">20% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Premium Firework Box"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Pakistani</span>
+          <h3 class="prod-card-name">Premium Firework Box</h3>
+          <p class="prod-card-desc">High-quality fireworks box with 20+ items perfect for celebrations.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 5,000</span>
+            <span class="prod-new-price">Rs. 4,000<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
         </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+      </div>
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">15% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Sky Shooter Pro"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">China</span>
+          <h3 class="prod-card-name">Sky Shooter Pro</h3>
+          <p class="prod-card-desc">Professional grade sky shooter with 50m height reach.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 3,500</span>
+            <span class="prod-new-price">Rs. 2,975<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">25% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Birthday Sparkle Pack"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Birthday</span>
+          <h3 class="prod-card-name">Birthday Sparkle Pack</h3>
+          <p class="prod-card-desc">Complete birthday celebration pack with sparklers and candles.</p>
+          <span class="prod-card-stock low"><i class="fas fa-exclamation-circle"></i> Low Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 2,000</span>
+            <span class="prod-new-price">Rs. 1,500<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">10% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Golden Fountain"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Pakistani</span>
+          <h3 class="prod-card-name">Golden Fountain</h3>
+          <p class="prod-card-desc">Beautiful golden fountain firework with 2-minute duration.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 1,500</span>
+            <span class="prod-new-price">Rs. 1,350<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">30% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Mega Celebration Kit"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">China</span>
+          <h3 class="prod-card-name">Mega Celebration Kit</h3>
+          <p class="prod-card-desc">Ultimate celebration kit with 50+ premium fireworks.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 10,000</span>
+            <span class="prod-new-price">Rs. 7,000<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new">
+        <div class="prod-img-area"><img src="1 product.png" alt="Party Popper Set"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Birthday</span>
+          <h3 class="prod-card-name">Party Popper Set</h3>
+          <p class="prod-card-desc">10 colorful party poppers perfect for any celebration.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 800</span>
+            <span class="prod-new-price">Rs. 800<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">18% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Rocket Launcher Pack"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Pakistani</span>
+          <h3 class="prod-card-name">Rocket Launcher Pack</h3>
+          <p class="prod-card-desc">12 premium rockets with colorful explosions.</p>
+          <span class="prod-card-stock out"><i class="fas fa-times-circle"></i> Out of Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 4,500</span>
+            <span class="prod-new-price">Rs. 3,690<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">22% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Color Smoke Bombs"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">China</span>
+          <h3 class="prod-card-name">Color Smoke Bombs</h3>
+          <p class="prod-card-desc">5 colorful smoke bombs for photography and events.</p>
+          <span class="prod-card-stock low"><i class="fas fa-exclamation-circle"></i> Low Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 2,500</span>
+            <span class="prod-new-price">Rs. 1,950<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">12% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Birthday Candle Set"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Birthday</span>
+          <h3 class="prod-card-name">Birthday Candle Set</h3>
+          <p class="prod-card-desc">Magic relighting candles with sparkler fountain.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 1,200</span>
+            <span class="prod-new-price">Rs. 1,056<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new">
+        <span class="prod-discount-badge">35% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Wedding Special Combo"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Pakistani</span>
+          <h3 class="prod-card-name">Wedding Special Combo</h3>
+          <p class="prod-card-desc">Complete wedding fireworks package with 30+ items.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 15,000</span>
+            <span class="prod-new-price">Rs. 9,750<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
       </div>
     </div>
-
-    <!-- PRODUCT 2 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">15% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Sky Shooter Pro"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">China</span>
-        <h3 class="prod-card-name">Sky Shooter Pro</h3>
-        <p class="prod-card-desc">Professional grade sky shooter with 50m height reach.</p>
-        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 3,500</span>
-          <span class="prod-new-price">Rs. 2,975<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
-    <!-- PRODUCT 3 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">25% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Birthday Sparkle Pack"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Birthday</span>
-        <h3 class="prod-card-name">Birthday Sparkle Pack</h3>
-        <p class="prod-card-desc">Complete birthday celebration pack with sparklers and candles.</p>
-        <span class="prod-card-stock low"><i class="fas fa-exclamation-circle"></i> Low Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 2,000</span>
-          <span class="prod-new-price">Rs. 1,500<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
-    <!-- PRODUCT 4 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">10% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Golden Fountain"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Pakistani</span>
-        <h3 class="prod-card-name">Golden Fountain</h3>
-        <p class="prod-card-desc">Beautiful golden fountain firework with 2-minute duration.</p>
-        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 1,500</span>
-          <span class="prod-new-price">Rs. 1,350<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
-    <!-- PRODUCT 5 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">30% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Mega Celebration Kit"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">China</span>
-        <h3 class="prod-card-name">Mega Celebration Kit</h3>
-        <p class="prod-card-desc">Ultimate celebration kit with 50+ premium fireworks.</p>
-        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 10,000</span>
-          <span class="prod-new-price">Rs. 7,000<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
-    <!-- PRODUCT 6 -->
-    <div class="prod-card-new">
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Party Popper Set"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Birthday</span>
-        <h3 class="prod-card-name">Party Popper Set</h3>
-        <p class="prod-card-desc">10 colorful party poppers perfect for any celebration.</p>
-        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 800</span>
-          <span class="prod-new-price">Rs. 800<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
-    <!-- PRODUCT 7 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">18% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Rocket Launcher Pack"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Pakistani</span>
-        <h3 class="prod-card-name">Rocket Launcher Pack</h3>
-        <p class="prod-card-desc">12 premium rockets with colorful explosions.</p>
-        <span class="prod-card-stock out"><i class="fas fa-times-circle"></i> Out of Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 4,500</span>
-          <span class="prod-new-price">Rs. 3,690<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
-    <!-- PRODUCT 8 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">22% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Color Smoke Bombs"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">China</span>
-        <h3 class="prod-card-name">Color Smoke Bombs</h3>
-        <p class="prod-card-desc">5 colorful smoke bombs for photography and events.</p>
-        <span class="prod-card-stock low"><i class="fas fa-exclamation-circle"></i> Low Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 2,500</span>
-          <span class="prod-new-price">Rs. 1,950<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
-    <!-- PRODUCT 9 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">12% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Birthday Candle Set"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Birthday</span>
-        <h3 class="prod-card-name">Birthday Candle Set</h3>
-        <p class="prod-card-desc">Magic relighting candles with sparkler fountain.</p>
-        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 1,200</span>
-          <span class="prod-new-price">Rs. 1,056<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
-    <!-- PRODUCT 10 -->
-    <div class="prod-card-new">
-      <span class="prod-discount-badge">35% OFF</span>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Wedding Special Combo"/>
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Pakistani</span>
-        <h3 class="prod-card-name">Wedding Special Combo</h3>
-        <p class="prod-card-desc">Complete wedding fireworks package with 30+ items.</p>
-        <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 15,000</span>
-          <span class="prod-new-price">Rs. 9,750<span class="prod-pkr">PKR</span></span>
-        </div>
-        <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
-      </div>
-    </div>
-
   </div>
+
+  <!-- ══ PAKISTANI PRODUCTS BLOCK ══ -->
+  <div class="cat-block" id="block-pakistani">
+    <div class="cat-section-heading">
+      <h2>🇵🇰 <span>Pakistani</span> Fireworks</h2>
+      <p>Proudly made in Pakistan · Trusted quality for every celebration</p>
+      <div class="cat-divider"></div>
+    </div>
+    <div class="sub-cat-pills">
+      <button class="sub-pill active" onclick="filterSubCat(this, 'pk-all')">All</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'pk-fountains')">Fountains</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'pk-rockets')">Rockets</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'pk-boxes')">Gift Boxes</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'pk-wedding')">Wedding</button>
+    </div>
+    <div class="products-grid">
+      <div class="prod-card-new" data-pk="pk-all pk-boxes">
+        <span class="prod-discount-badge">20% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Premium Firework Box"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Pakistani · Gift Box</span>
+          <h3 class="prod-card-name">Premium Firework Box</h3>
+          <p class="prod-card-desc">High-quality fireworks box with 20+ items perfect for celebrations.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 5,000</span>
+            <span class="prod-new-price">Rs. 4,000<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new" data-pk="pk-all pk-fountains">
+        <span class="prod-discount-badge">10% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Golden Fountain"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Pakistani · Fountain</span>
+          <h3 class="prod-card-name">Golden Fountain</h3>
+          <p class="prod-card-desc">Beautiful golden fountain firework with 2-minute duration.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 1,500</span>
+            <span class="prod-new-price">Rs. 1,350<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new" data-pk="pk-all pk-rockets">
+        <span class="prod-discount-badge">18% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Rocket Launcher Pack"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Pakistani · Rockets</span>
+          <h3 class="prod-card-name">Rocket Launcher Pack</h3>
+          <p class="prod-card-desc">12 premium rockets with colorful explosions.</p>
+          <span class="prod-card-stock out"><i class="fas fa-times-circle"></i> Out of Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 4,500</span>
+            <span class="prod-new-price">Rs. 3,690<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new" data-pk="pk-all pk-wedding">
+        <span class="prod-discount-badge">35% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Wedding Special Combo"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Pakistani · Wedding</span>
+          <h3 class="prod-card-name">Wedding Special Combo</h3>
+          <p class="prod-card-desc">Complete wedding fireworks package with 30+ items.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 15,000</span>
+            <span class="prod-new-price">Rs. 9,750<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CHINESE PRODUCTS BLOCK ══ -->
+  <div class="cat-block" id="block-chinese">
+    <div class="cat-section-heading">
+      <h2>🇨🇳 <span>Chinese</span> Fireworks</h2>
+      <p>Premium imported fireworks · Vibrant colors, massive heights</p>
+      <div class="cat-divider"></div>
+    </div>
+    <div class="sub-cat-pills">
+      <button class="sub-pill active" onclick="filterSubCat(this, 'cn-all')">All</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'cn-shooters')">Sky Shooters</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'cn-kits')">Mega Kits</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'cn-smoke')">Smoke Bombs</button>
+    </div>
+    <div class="products-grid">
+      <div class="prod-card-new" data-cn="cn-all cn-shooters">
+        <span class="prod-discount-badge">15% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Sky Shooter Pro"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">China · Sky Shooter</span>
+          <h3 class="prod-card-name">Sky Shooter Pro</h3>
+          <p class="prod-card-desc">Professional grade sky shooter with 50m height reach.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 3,500</span>
+            <span class="prod-new-price">Rs. 2,975<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new" data-cn="cn-all cn-kits">
+        <span class="prod-discount-badge">30% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Mega Celebration Kit"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">China · Mega Kit</span>
+          <h3 class="prod-card-name">Mega Celebration Kit</h3>
+          <p class="prod-card-desc">Ultimate celebration kit with 50+ premium fireworks.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 10,000</span>
+            <span class="prod-new-price">Rs. 7,000<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new" data-cn="cn-all cn-smoke">
+        <span class="prod-discount-badge">22% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Color Smoke Bombs"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">China · Smoke</span>
+          <h3 class="prod-card-name">Color Smoke Bombs</h3>
+          <p class="prod-card-desc">5 colorful smoke bombs for photography and events.</p>
+          <span class="prod-card-stock low"><i class="fas fa-exclamation-circle"></i> Low Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 2,500</span>
+            <span class="prod-new-price">Rs. 1,950<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BIRTHDAY PRODUCTS BLOCK ══ -->
+  <div class="cat-block" id="block-birthday">
+    <div class="cat-section-heading">
+      <h2>🎂 <span>Birthday</span> Supplies</h2>
+      <p>Make every birthday magical · Sparklers, candles & party poppers</p>
+      <div class="cat-divider"></div>
+    </div>
+    <div class="sub-cat-pills">
+      <button class="sub-pill active" onclick="filterSubCat(this, 'bd-all')">All</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'bd-sparklers')">Sparklers</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'bd-candles')">Candles</button>
+      <button class="sub-pill" onclick="filterSubCat(this, 'bd-poppers')">Poppers</button>
+    </div>
+    <div class="products-grid">
+      <div class="prod-card-new" data-bd="bd-all bd-sparklers">
+        <span class="prod-discount-badge">25% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Birthday Sparkle Pack"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Birthday · Sparklers</span>
+          <h3 class="prod-card-name">Birthday Sparkle Pack</h3>
+          <p class="prod-card-desc">Complete birthday celebration pack with sparklers and candles.</p>
+          <span class="prod-card-stock low"><i class="fas fa-exclamation-circle"></i> Low Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 2,000</span>
+            <span class="prod-new-price">Rs. 1,500<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new" data-bd="bd-all bd-poppers">
+        <div class="prod-img-area"><img src="1 product.png" alt="Party Popper Set"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Birthday · Poppers</span>
+          <h3 class="prod-card-name">Party Popper Set</h3>
+          <p class="prod-card-desc">10 colorful party poppers perfect for any celebration.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 800</span>
+            <span class="prod-new-price">Rs. 800<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+      <div class="prod-card-new" data-bd="bd-all bd-candles">
+        <span class="prod-discount-badge">12% OFF</span>
+        <div class="prod-img-area"><img src="1 product.png" alt="Birthday Candle Set"/></div>
+        <div class="prod-card-body">
+          <span class="prod-card-sub">Birthday · Candles</span>
+          <h3 class="prod-card-name">Birthday Candle Set</h3>
+          <p class="prod-card-desc">Magic relighting candles with sparkler fountain.</p>
+          <span class="prod-card-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+          <div class="prod-card-prices">
+            <span class="prod-old-price">Rs. 1,200</span>
+            <span class="prod-new-price">Rs. 1,056<span class="prod-pkr">PKR</span></span>
+          </div>
+          <button class="prod-card-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- ══════════════ FOOTER ══════════════ -->
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -299,7 +605,6 @@
           <div class="footer-contact-item"><i class="fas fa-envelope"></i><span><a href="mailto:dormetfireworks@gmail.com">dormetfireworks@gmail.com</a></span></div>
           <div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span><a href="https://wa.me/923000000000">+92 300 0000000</a></span></div>
           <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Karachi, Sindh, Pakistan<br/>All Areas Delivery Available</span></div>
-          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon–Sat: 9 AM – 9 PM<br/>Sun: 10 AM – 6 PM</span></div>
         </div>
       </div>
       <div class="footer-col">
@@ -334,21 +639,89 @@
   </div>
 </div>
 
-<!-- THEME + MAP HELPERS -->
+<!-- ══════════════ SCRIPTS ══════════════ -->
 <script>
+  // ── Theme ──
   function toggleTheme() {
-    const html = document.documentElement;
-    const newTheme = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    html.setAttribute("data-theme", newTheme);
+    var html  = document.documentElement;
+    var next  = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", next);
+    var icon = document.getElementById("theme-icon");
+    if (icon) icon.className = next === "dark" ? "fas fa-moon" : "fas fa-sun";
   }
-  function openMap()       { document.getElementById("map-modal").style.display = "flex"; }
-  function closeMap()      { document.getElementById("map-modal").style.display = "none"; }
-  
-  document.getElementById("map-modal").addEventListener("click", e => {
+
+  // ── Map ──
+  function openMap()  { document.getElementById("map-modal").style.display = "flex"; }
+  function closeMap() { document.getElementById("map-modal").style.display = "none"; }
+  document.getElementById("map-modal").addEventListener("click", function(e) {
     if (e.target === e.currentTarget) closeMap();
   });
-  
-  // Set current year
+
+  // ── Hamburger — bulletproof: uses capture phase so products.js can't block it ──
+  var hamburger  = document.getElementById("hamburger");
+  var mobileMenu = document.getElementById("mobile-menu");
+
+  hamburger.addEventListener("click", function(e) {
+    e.stopPropagation();          // prevent anything else from eating this click
+    e.preventDefault();           // prevent default link behavior if any
+    hamburger.classList.toggle("open");
+    mobileMenu.classList.toggle("open");
+  }, true);                       // true = capture phase, runs BEFORE products.js handlers
+
+  function closeMobileMenu() {
+    hamburger.classList.remove("open");
+    mobileMenu.classList.remove("open");
+  }
+
+  // Close when a mobile link is clicked
+  document.querySelectorAll(".mobile-link").forEach(function(link) {
+    link.addEventListener("click", closeMobileMenu);
+  });
+
+  // ── External sound button — wire to main, sync icon via MutationObserver ──
+  (function() {
+    var extBtn  = document.getElementById("sound-toggle-external");
+    var mainBtn = document.getElementById("sound-toggle");
+    var mainIcn = document.getElementById("sound-icon");
+    var extIcn  = document.getElementById("sound-icon-external");
+
+    if (extBtn && mainBtn) {
+      extBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        mainBtn.click();
+      });
+    }
+    if (mainIcn && extIcn) {
+      extIcn.className = mainIcn.className;
+      new MutationObserver(function() {
+        extIcn.className = mainIcn.className;
+      }).observe(mainIcn, { attributes: true, attributeFilter: ["class"] });
+    }
+  })();
+
+  // ── Category Tabs ──
+  function showCat(cat) {
+    document.querySelectorAll(".cat-block").forEach(function(b) { b.classList.remove("visible"); });
+    document.getElementById("block-" + cat).classList.add("visible");
+    document.querySelectorAll(".cat-tab").forEach(function(t) { t.classList.remove("active"); });
+    if (event && event.currentTarget) event.currentTarget.classList.add("active");
+    document.querySelector(".products-section").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // ── Sub-category Pills ──
+  function filterSubCat(btn, key) {
+    btn.closest(".sub-cat-pills").querySelectorAll(".sub-pill").forEach(function(p) { p.classList.remove("active"); });
+    btn.classList.add("active");
+    var prefix = key.split("-")[0];
+    var attrMap = { pk: "data-pk", cn: "data-cn", bd: "data-bd" };
+    var attr    = attrMap[prefix];
+    btn.closest(".cat-block").querySelectorAll(".prod-card-new[" + attr + "]").forEach(function(card) {
+      var cats = card.getAttribute(attr).split(" ");
+      card.style.display = cats.indexOf(key) !== -1 ? "" : "none";
+    });
+  }
+
+  // ── Footer Year ──
   document.getElementById("year2").textContent = new Date().getFullYear();
 </script>
 <script src="products.js"></script>

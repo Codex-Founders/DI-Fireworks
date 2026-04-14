@@ -8,10 +8,110 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="shortcut icon" href="di-logo.png" type="image/x-icon">
+  <style>
+    #sound-toggle-external {
+      display: none !important;
+      width: 36px; height: 36px; min-width: 36px; max-width: 36px;
+      padding: 0; margin: 0; margin-left: 6px; border-radius: 8px;
+      font-size: 13px; align-items: center; justify-content: center;
+      cursor: pointer; border: none; background: transparent;
+      color: inherit; flex-shrink: 0; order: 2;
+      transition: background 0.2s, color 0.2s;
+    }
+    #sound-toggle-external:hover, #sound-toggle-external:active { background: rgba(255,255,255,0.08); }
+    @media (max-width: 900px) { #sound-toggle-external { display: flex !important; } }
+
+    .form-tabs {
+      display: flex; gap: 0; margin-bottom: 28px;
+      border-radius: 12px; overflow: hidden;
+      border: 2px solid var(--gold, #c9a84c);
+    }
+    .form-tab {
+      flex: 1; padding: 14px 10px; border: none; cursor: pointer;
+      font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700;
+      letter-spacing: 0.5px; text-align: center;
+      background: transparent; color: var(--gold, #c9a84c);
+      transition: background 0.3s, color 0.3s;
+    }
+    .form-tab.active { background: var(--gold, #c9a84c); color: #111; }
+    .form-tab i { margin-right: 6px; }
+
+    .form-panel { display: none; }
+    .form-panel.active { display: block; }
+
+    .cat-select-wrap select {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      border: 1.5px solid rgba(201,168,76,0.35);
+      background: rgba(201,168,76,0.06);
+      color: inherit; font-family: 'Rajdhani', sans-serif;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      transition: border-color 0.2s;
+    }
+    .cat-select-wrap select:focus { outline: none; border-color: var(--gold, #c9a84c); }
+    .cat-select-wrap select option { background: #1a1a2e; color: #eee; padding: 8px; }
+
+    .form-sub-pills {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+      animation: fadeSlide 0.3s ease;
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .form-sub-pill {
+      padding: 7px 16px; border-radius: 20px;
+      border: 1.5px solid rgba(201,168,76,0.4);
+      background: rgba(201,168,76,0.06);
+      color: var(--gold, #c9a84c);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; user-select: none;
+    }
+    .form-sub-pill:hover { background: rgba(201,168,76,0.15); }
+    .form-sub-pill.selected {
+      background: var(--gold, #c9a84c); color: #111;
+      border-color: var(--gold, #c9a84c);
+    }
+
+    .form-group.shake input,
+    .form-group.shake select,
+    .form-group.shake textarea {
+      border-color: #ff4d4d !important; animation: shake 0.4s ease;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      75% { transform: translateX(-6px); }
+    }
+
+    .contact-form textarea {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      border: 1.5px solid rgba(201,168,76,0.35);
+      background: rgba(201,168,76,0.06);
+      color: inherit; font-family: 'Rajdhani', sans-serif;
+      font-size: 15px; font-weight: 500; resize: vertical;
+      min-height: 80px; transition: border-color 0.2s;
+    }
+    .contact-form textarea:focus { outline: none; border-color: var(--gold, #c9a84c); }
+    .contact-form textarea::placeholder { opacity: 0.4; }
+    .contact-form input[type="date"] { color-scheme: dark; }
+
+    .selected-summary {
+      margin-top: 12px; padding: 10px 14px; border-radius: 8px;
+      font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 600;
+      background: rgba(201,168,76,0.1); color: var(--gold, #c9a84c);
+      border: 1px dashed rgba(201,168,76,0.3); display: none;
+    }
+    .selected-summary.visible { display: block; }
+    .selected-summary i { margin-right: 4px; }
+  </style>
 </head>
 <body>
 
-<!-- INTRO -->
 <div id="intro-overlay">
   <canvas id="fireworks-canvas"></canvas>
   <div id="intro-logo-wrap">
@@ -25,17 +125,15 @@
   </div>
 </div>
 
-<!-- NAVBAR -->
 <nav id="navbar">
   <div class="nav-pill">
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     <div class="nav-logo">
-      <a href="#home" class="logo-link">
-        <img src="di-logo.png" alt="DI Fireworks" class="nav-logo-img"/>
-      </a>
+      <a href="#home" class="logo-link"><img src="di-logo.png" alt="DI Fireworks" class="nav-logo-img"/></a>
     </div>
+    <button id="sound-toggle-external" title="Toggle Sound">
+      <i class="fas fa-volume-xmark" id="sound-icon-external"></i>
+    </button>
     <ul class="nav-links" id="nav-links">
       <li><a href="#home"         class="nav-link active">Home</a></li>
       <li><a href="#about"        class="nav-link">About</a></li>
@@ -54,8 +152,6 @@
       </button>
     </div>
   </div>
-
-  <!-- MOBILE DROPDOWN MENU -->
   <div class="mobile-menu" id="mobile-menu">
     <ul class="mobile-nav-links">
       <li><a href="#home"         class="nav-link mobile-link active">Home</a></li>
@@ -67,15 +163,8 @@
       <li><a href="#contact"      class="nav-link mobile-link">Contact</a></li>
     </ul>
     <div class="mobile-actions">
-      <a href="tel:+923000000000" class="mobile-action-btn" title="Call Us">
-        <i class="fas fa-phone-alt"></i><span>Call Us</span>
-      </a>
-      <a href="#" class="mobile-action-btn gold" title="Our Location" onclick="openMap();closeMobileMenu();return false;">
-        <i class="fas fa-map-marker-alt"></i><span>Location</span>
-      </a>
-      <button id="sound-toggle-m" class="mobile-action-btn" title="Toggle Sound" onclick="document.getElementById('sound-toggle').click();updateMobileSoundBtn()">
-        <i class="fas fa-volume-xmark" id="sound-icon-m"></i><span id="sound-label-m">Sound</span>
-      </button>
+      <a href="tel:+923000000000" class="mobile-action-btn" title="Call Us"><i class="fas fa-phone-alt"></i><span>Call Us</span></a>
+      <a href="#" class="mobile-action-btn gold" title="Our Location" onclick="openMap();closeMobileMenu();return false;"><i class="fas fa-map-marker-alt"></i><span>Location</span></a>
       <button id="theme-toggle-m" class="mobile-action-btn theme" title="Toggle Theme" onclick="toggleTheme();updateMobileThemeBtn()">
         <i class="fas fa-moon" id="theme-icon-m"></i><span id="theme-label-m">Light Mode</span>
       </button>
@@ -83,7 +172,6 @@
   </div>
 </nav>
 
-<!-- HOME -->
 <section id="home">
   <div class="home-hero">
     <canvas id="hero-canvas"></canvas>
@@ -112,71 +200,28 @@
         <div class="fw-img-wrap">
           <div class="fw-img-glow"></div>
           <img src="fireworks-products.png" alt="Premium Fireworks" class="fw-products-img"/>
-          <span class="fw-spark s1"></span>
-          <span class="fw-spark s2"></span>
-          <span class="fw-spark s3"></span>
-          <span class="fw-spark s4"></span>
+          <span class="fw-spark s1"></span><span class="fw-spark s2"></span>
+          <span class="fw-spark s3"></span><span class="fw-spark s4"></span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT SECTION -->
 <section id="about">
   <div class="section-header">
     <span class="section-tag">Who We Are</span>
     <h2 class="section-title">About <span class="red">DI.Fireworks</span></h2>
     <p class="section-subtitle">Karachi's #1 Fireworks & Event Planning Destination</p>
   </div>
-  
   <div class="about-grid">
-    <!-- CARD 1 -->
-    <div class="about-card">
-      <div class="about-icon">
-        <i class="fas fa-fire"></i>
-      </div>
-      <div class="card-number">01</div>
-      <h3>Our Story</h3>
-      <p>Dormet International Fireworks has been lighting up Pakistan's skies. Based in Karachi, we serve customers nationwide with premium quality.</p>
-      <div class="card-accent"></div>
-    </div>
-
-    <!-- CARD 2 -->
-    <div class="about-card">
-      <div class="about-icon">
-        <i class="fas fa-certificate"></i>
-      </div>
-      <div class="card-number">02</div>
-      <h3>Govt. Registered</h3>
-      <p>Fully government registered company. Every product meets strict safety & quality standards. Buy with complete trust & confidence.</p>
-      <div class="card-accent"></div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="about-card">
-      <div class="about-icon">
-        <i class="fas fa-shipping-fast"></i>
-      </div>
-      <div class="card-number">03</div>
-      <h3>Fast Delivery</h3>
-      <p>All Karachi delivery within 24 hours! Safely packaged, handled with care. Order from home, receive at your doorstep instantly.</p>
-      <div class="card-accent"></div>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="about-card">
-      <div class="about-icon">
-        <i class="fas fa-crown"></i>
-      </div>
-      <div class="card-number">04</div>
-      <h3>Premium Quality</h3>
-      <p>Pakistani traditional + Chinese imported + Birthday supplies. Widest range, unbeatable prices, guaranteed satisfaction every time!</p>
-      <div class="card-accent"></div>
-    </div>
+    <div class="about-card"><div class="about-icon"><i class="fas fa-fire"></i></div><div class="card-number">01</div><h3>Our Story</h3><p>Dormet International Fireworks has been lighting up Pakistan's skies. Based in Karachi, we serve customers nationwide with premium quality.</p><div class="card-accent"></div></div>
+    <div class="about-card"><div class="about-icon"><i class="fas fa-certificate"></i></div><div class="card-number">02</div><h3>Govt. Registered</h3><p>Fully government registered company. Every product meets strict safety & quality standards. Buy with complete trust & confidence.</p><div class="card-accent"></div></div>
+    <div class="about-card"><div class="about-icon"><i class="fas fa-shipping-fast"></i></div><div class="card-number">03</div><h3>Fast Delivery</h3><p>All Karachi delivery within 24 hours! Safely packaged, handled with care. Order from home, receive at your doorstep instantly.</p><div class="card-accent"></div></div>
+    <div class="about-card"><div class="about-icon"><i class="fas fa-crown"></i></div><div class="card-number">04</div><h3>Premium Quality</h3><p>Pakistani traditional + Chinese imported + Birthday supplies. Widest range, unbeatable prices, guaranteed satisfaction every time!</p><div class="card-accent"></div></div>
   </div>
 </section>
-<!-- CERTIFICATES -->
+
 <section id="certificates">
   <div class="section-header">
     <span class="section-tag">Official Documentation</span>
@@ -190,189 +235,44 @@
   </div>
 </section>
 
-<!-- SERVICES SECTION -->
 <section id="services">
   <div class="section-header">
     <span class="section-tag">What We Offer</span>
     <h2 class="section-title">Our <span class="red">Services</span></h2>
   </div>
-  
   <div class="services-grid">
-    <!-- SERVICE 1 -->
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <div class="service-icon">
-        <i class="fas fa-rocket"></i>
-      </div>
-      <h3>Fireworks Display</h3>
-      <p>Professional aerial fireworks shows for weddings, corporate events, national celebrations, and private parties.</p>
-      <div class="card-accent"></div>
-    </div>
-
-    <!-- SERVICE 2 -->
-    <div class="service-card">
-      <div class="service-num">02</div>
-      <div class="service-icon">
-        <i class="fas fa-birthday-cake"></i>
-      </div>
-      <h3>Birthday Decoration</h3>
-      <p>Complete birthday party planning with balloons, color smoke, party poppers, and custom decorations.</p>
-      <div class="card-accent"></div>
-    </div>
-
-    <!-- SERVICE 3 -->
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <div class="service-icon">
-        <i class="fas fa-ring"></i>
-      </div>
-      <h3>Wedding Events</h3>
-      <p>Spectacular fireworks and lighting for your special wedding night that create lifelong memories.</p>
-      <div class="card-accent"></div>
-    </div>
-
-    <!-- SERVICE 4 -->
-    <div class="service-card">
-      <div class="service-num">04</div>
-      <div class="service-icon">
-        <i class="fas fa-building"></i>
-      </div>
-      <h3>Corporate Events</h3>
-      <p>Grand opening ceremonies, product launches, and corporate celebrations with professional pyrotechnic setups.</p>
-      <div class="card-accent"></div>
-    </div>
-
-    <!-- SERVICE 5 -->
-    <div class="service-card">
-      <div class="service-num">05</div>
-      <div class="service-icon">
-        <i class="fas fa-truck"></i>
-      </div>
-      <h3>Home Delivery</h3>
-      <p>Fast, safe delivery across all areas of Karachi. Order online and receive at your doorstep.</p>
-      <div class="card-accent"></div>
-    </div>
-
-    <!-- SERVICE 6 -->
-    <div class="service-card">
-      <div class="service-num">06</div>
-      <div class="service-icon">
-        <i class="fas fa-headset"></i>
-      </div>
-      <h3>Consultation</h3>
-      <p>Expert advice on choosing the right fireworks for your event, budget, and venue requirements.</p>
-      <div class="card-accent"></div>
-    </div>
+    <div class="service-card"><div class="service-num">01</div><div class="service-icon"><i class="fas fa-rocket"></i></div><h3>Fireworks Display</h3><p>Professional aerial fireworks shows for weddings, corporate events, national celebrations, and private parties.</p><div class="card-accent"></div></div>
+    <div class="service-card"><div class="service-num">02</div><div class="service-icon"><i class="fas fa-birthday-cake"></i></div><h3>Birthday Decoration</h3><p>Complete birthday party planning with balloons, color smoke, party poppers, and custom decorations.</p><div class="card-accent"></div></div>
+    <div class="service-card"><div class="service-num">03</div><div class="service-icon"><i class="fas fa-ring"></i></div><h3>Wedding Events</h3><p>Spectacular fireworks and lighting for your special wedding night that create lifelong memories.</p><div class="card-accent"></div></div>
+    <div class="service-card"><div class="service-num">04</div><div class="service-icon"><i class="fas fa-building"></i></div><h3>Corporate Events</h3><p>Grand opening ceremonies, product launches, and corporate celebrations with professional pyrotechnic setups.</p><div class="card-accent"></div></div>
+    <div class="service-card"><div class="service-num">05</div><div class="service-icon"><i class="fas fa-truck"></i></div><h3>Home Delivery</h3><p>Fast, safe delivery across all areas of Karachi. Order online and receive at your doorstep.</p><div class="card-accent"></div></div>
+    <div class="service-card"><div class="service-num">06</div><div class="service-icon"><i class="fas fa-headset"></i></div><h3>Consultation</h3><p>Expert advice on choosing the right fireworks for your event, budget, and venue requirements.</p><div class="card-accent"></div></div>
   </div>
 </section>
-<!-- PRODUCTS -->
+
 <section id="products">
   <div class="section-header">
     <span class="section-tag">Shop Now</span>
     <h2>Our <span class="red">Products</span></h2>
   </div>
-
-  <div class="products-preview-grid" 
-       style="max-width:1100px;margin:0 auto 38px;display:grid;
-       grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;">
-
-    <!-- PRODUCT 1 -->
-    <div class="prod-card-new">
-      <div class="prod-discount-badge">−28% OFF</div>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Dragong 25 Shoot">
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Aerial Shell · Repeater · China Import</span>
-        <div class="prod-card-name">Dragong 25 Shoot</div>
-        <p class="prod-card-desc">25-shot aerial repeater with dragon-themed bursts.</p>
-        <span class="prod-card-stock">In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 3,500</span>
-          <span class="prod-new-price">Rs. 2,500 PKR</span>
-        </div>
-        <a href="#contact" class="prod-card-btn">Order Now</a>
-      </div>
-    </div>
-
-    <!-- PRODUCT 2 -->
-    <div class="prod-card-new">
-      <div class="prod-discount-badge">−20% OFF</div>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Butterfly Shots">
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Color Fountain</span>
-        <div class="prod-card-name">Butterfly Shots</div>
-        <p class="prod-card-desc">Colorful butterfly fireworks with smooth effects.</p>
-        <span class="prod-card-stock">In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 1,500</span>
-          <span class="prod-new-price">Rs. 1,200 PKR</span>
-        </div>
-        <a href="#contact" class="prod-card-btn">Order Now</a>
-      </div>
-    </div>
-
-    <!-- PRODUCT 3 -->
-    <div class="prod-card-new">
-      <div class="prod-discount-badge">−15% OFF</div>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Thunder Bomb">
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Sound Crackers</span>
-        <div class="prod-card-name">Thunder Bomb</div>
-        <p class="prod-card-desc">Loud explosive sound crackers for events.</p>
-        <span class="prod-card-stock">In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 2,000</span>
-          <span class="prod-new-price">Rs. 1,700 PKR</span>
-        </div>
-        <a href="#contact" class="prod-card-btn">Order Now</a>
-      </div>
-    </div>
-
-    <!-- PRODUCT 4 -->
-    <div class="prod-card-new">
-      <div class="prod-discount-badge">−25% OFF</div>
-      <div class="prod-img-area">
-        <img src="1 product.png" alt="Sky Rocket">
-      </div>
-      <div class="prod-card-body">
-        <span class="prod-card-sub">Rocket Fireworks</span>
-        <div class="prod-card-name">Sky Rocket</div>
-        <p class="prod-card-desc">High flying rockets with colorful explosions.</p>
-        <span class="prod-card-stock">In Stock</span>
-        <div class="prod-card-prices">
-          <span class="prod-old-price">Rs. 2,800</span>
-          <span class="prod-new-price">Rs. 2,100 PKR</span>
-        </div>
-        <a href="#contact" class="prod-card-btn">Order Now</a>
-      </div>
-    </div>
-
+  <div class="products-preview-grid" style="max-width:1100px;margin:0 auto 38px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;">
+    <div class="prod-card-new"><div class="prod-discount-badge">−28% OFF</div><div class="prod-img-area"><img src="1 product.png" alt="Dragong 25 Shoot"></div><div class="prod-card-body"><span class="prod-card-sub">Aerial Shell · Repeater · China Import</span><div class="prod-card-name">Dragong 25 Shoot</div><p class="prod-card-desc">25-shot aerial repeater with dragon-themed bursts.</p><span class="prod-card-stock">In Stock</span><div class="prod-card-prices"><span class="prod-old-price">Rs. 3,500</span><span class="prod-new-price">Rs. 2,500 PKR</span></div><a href="#contact" class="prod-card-btn">Order Now</a></div></div>
+    <div class="prod-card-new"><div class="prod-discount-badge">−20% OFF</div><div class="prod-img-area"><img src="1 product.png" alt="Butterfly Shots"></div><div class="prod-card-body"><span class="prod-card-sub">Color Fountain</span><div class="prod-card-name">Butterfly Shots</div><p class="prod-card-desc">Colorful butterfly fireworks with smooth effects.</p><span class="prod-card-stock">In Stock</span><div class="prod-card-prices"><span class="prod-old-price">Rs. 1,500</span><span class="prod-new-price">Rs. 1,200 PKR</span></div><a href="#contact" class="prod-card-btn">Order Now</a></div></div>
+    <div class="prod-card-new"><div class="prod-discount-badge">−15% OFF</div><div class="prod-img-area"><img src="1 product.png" alt="Thunder Bomb"></div><div class="prod-card-body"><span class="prod-card-sub">Sound Crackers</span><div class="prod-card-name">Thunder Bomb</div><p class="prod-card-desc">Loud explosive sound crackers for events.</p><span class="prod-card-stock">In Stock</span><div class="prod-card-prices"><span class="prod-old-price">Rs. 2,000</span><span class="prod-new-price">Rs. 1,700 PKR</span></div><a href="#contact" class="prod-card-btn">Order Now</a></div></div>
+    <div class="prod-card-new"><div class="prod-discount-badge">−25% OFF</div><div class="prod-img-area"><img src="1 product.png" alt="Sky Rocket"></div><div class="prod-card-body"><span class="prod-card-sub">Rocket Fireworks</span><div class="prod-card-name">Sky Rocket</div><p class="prod-card-desc">High flying rockets with colorful explosions.</p><span class="prod-card-stock">In Stock</span><div class="prod-card-prices"><span class="prod-old-price">Rs. 2,800</span><span class="prod-new-price">Rs. 2,100 PKR</span></div><a href="#contact" class="prod-card-btn">Order Now</a></div></div>
   </div>
-
-  <div class="see-all-wrap">
-    <a href="products.html" class="btn-see-all">See All Products</a>
-  </div>
+  <div class="see-all-wrap"><a href="products.html" class="btn-see-all">See All Products</a></div>
 </section>
-<!-- REVIEWS -->
+
 <section id="reviews">
   <div class="section-header">
     <span class="section-tag">Customer Love</span>
     <h2>What People <span class="red">Say</span></h2>
   </div>
-  <div class="reviews-track-wrap">
-    <div class="reviews-track" id="reviews-track"></div>
-  </div>
-  <div class="share-review-wrap">
-    <button class="btn-share-review" onclick="openReviewModal()"><i class="fas fa-pen"></i> Share Your Review</button>
-  </div>
+  <div class="reviews-track-wrap"><div class="reviews-track" id="reviews-track"></div></div>
+  <div class="share-review-wrap"><button class="btn-share-review" onclick="openReviewModal()"><i class="fas fa-pen"></i> Share Your Review</button></div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="section-header">
     <span class="section-tag">Get In Touch</span>
@@ -381,43 +281,78 @@
   <div class="contact-grid">
     <div class="contact-info">
       <div class="info-item"><i class="fas fa-envelope"></i><div><h4>Email</h4><p>dormetfireworks@gmail.com</p></div></div>
-      <div class="info-item"><i class="fab fa-whatsapp"></i><div><h4>WhatsApp</h4><p>+92 300 0000000</p></div></div>
+      <div class="info-item"><i class="fab fa-whatsapp"></i><div><h4>WhatsApp</h4><p>+92 319 3921895</p></div></div>
       <div class="info-item"><i class="fas fa-map-marker-alt"></i><div><h4>Location</h4><p>Karachi, Sindh, Pakistan<br/>All Karachi Delivery Available</p></div></div>
-      <div class="info-item"><i class="fas fa-clock"></i><div><h4>Business Hours</h4><p>Mon – Sat: 9 AM – 9 PM<br/>Sun: 10 AM – 6 PM</p></div></div>
     </div>
+
     <div class="contact-form">
-      <h3>Place Your Order</h3>
-      <div class="form-row">
-        <div class="form-group"><label>Full Name *</label><input type="text" id="c-name" placeholder="Your Name"/></div>
-        <div class="form-group"><label>Mobile Number *</label><input type="tel" id="c-mobile" placeholder="+92 3XX XXXXXXX"/></div>
+      <div class="form-tabs">
+        <button class="form-tab active" onclick="switchFormTab('order')"><i class="fas fa-box"></i> Order Products</button>
+        <button class="form-tab" onclick="switchFormTab('event')"><i class="fas fa-calendar-alt"></i> Plan an Event</button>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>Email</label><input type="email" id="c-email" placeholder="your@email.com"/></div>
-        <div class="form-group"><label>Product Name *</label><input type="text" id="c-product" placeholder="Product Name"/></div>
+
+      <div class="form-panel active" id="panel-order">
+        <div class="form-row">
+          <div class="form-group" id="fg-o-name"><label>Full Name *</label><input type="text" id="o-name" placeholder="Your Name"/></div>
+          <div class="form-group" id="fg-o-phone"><label>Phone Number *</label><input type="tel" id="o-phone" placeholder="03XX XXXXXXX"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" id="fg-o-email"><label>Email <span style="opacity:0.4;font-weight:400">(optional)</span></label><input type="email" id="o-email" placeholder="your@email.com"/></div>
+          <div class="form-group"></div>
+        </div>
+        <div class="form-group cat-select-wrap" id="fg-o-cat">
+          <label>What do you want? *</label>
+          <select id="o-category" onchange="onOrderCatChange()">
+            <option value="">— Select Category —</option>
+            <option value="pakistani">🇵🇰 Pakistani Fireworks</option>
+            <option value="chinese">🇨🇳 Chinese Fireworks</option>
+            <option value="birthday">🎂 Birthday Supplies</option>
+          </select>
+        </div>
+        <div id="o-subcat-area"></div>
+        <div class="selected-summary" id="o-selected-summary"><i class="fas fa-check-circle"></i> Selected: <span id="o-selected-text"></span></div>
+        <div class="form-group" style="margin-top:16px;" id="fg-o-details">
+          <label>Any extra details? <span style="opacity:0.4;font-weight:400">(optional)</span></label>
+          <textarea id="o-details" placeholder="Quantity, specific product name, delivery address..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="sendOrderToWhatsApp()" style="margin-top:6px;"><i class="fas fa-paper-plane"></i> Place Your Order</button>
+        <div id="form-msg-order" class="form-msg"></div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>Quantity *</label><input type="number" id="c-qty" placeholder="1"/></div>
-        <div class="form-group"><label>House Number</label><input type="text" id="c-house" placeholder="A-123"/></div>
+
+      <div class="form-panel" id="panel-event">
+        <div class="form-row">
+          <div class="form-group" id="fg-e-name"><label>Full Name *</label><input type="text" id="e-name" placeholder="Your Name"/></div>
+          <div class="form-group" id="fg-e-phone"><label>Phone Number *</label><input type="tel" id="e-phone" placeholder="03XX XXXXXXX"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" id="fg-e-email"><label>Email <span style="opacity:0.4;font-weight:400">(optional)</span></label><input type="email" id="e-email" placeholder="your@email.com"/></div>
+          <div class="form-group" id="fg-e-date"><label>Event Date *</label><input type="date" id="e-date"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group cat-select-wrap" id="fg-e-type">
+            <label>Event Type *</label>
+            <select id="e-type">
+              <option value="">— Select Event —</option>
+              <option value="Wedding">💍 Wedding</option>
+              <option value="Birthday">🎂 Birthday Party</option>
+              <option value="Corporate">🏢 Corporate Event</option>
+              <option value="National Day">🇵🇰 National Day / Independence Day</option>
+              <option value="New Year">🎆 New Year Celebration</option>
+              <option value="Engagement">💍 Engagement</option>
+              <option value="Other">🎉 Other</option>
+            </select>
+          </div>
+          <div class="form-group" id="fg-e-guests"><label>Estimated Guests</label><input type="text" id="e-guests" placeholder="e.g. 200-500"/></div>
+        </div>
+        <div class="form-group" id="fg-e-venue" style="margin-top:4px;"><label>Venue / Location <span style="opacity:0.4;font-weight:400">(optional)</span></label><input type="text" id="e-venue" placeholder="Venue name or area in Karachi"/></div>
+        <div class="form-group" id="fg-e-details" style="margin-top:4px;"><label>Tell us more about your event <span style="opacity:0.4;font-weight:400">(optional)</span></label><textarea id="e-details" placeholder="What kind of fireworks do you want? Budget? Special requirements?"></textarea></div>
+        <button class="btn-submit" onclick="sendEventToWhatsApp()" style="margin-top:6px;"><i class="fas fa-paper-plane"></i> Place Your Order</button>
+        <div id="form-msg-event" class="form-msg"></div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>Street No.</label><input type="text" id="c-street" placeholder="Street 5"/></div>
-        <div class="form-group"><label>Area</label><input type="text" id="c-area" placeholder="Gulshan-e-Iqbal"/></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Sector / Block</label><input type="text" id="c-sector" placeholder="Block 3"/></div>
-        <div class="form-group"><label>City *</label><input type="text" id="c-city" placeholder="Karachi"/></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Postal Code</label><input type="text" id="c-postal" placeholder="75300"/></div>
-        <div class="form-group"><label>Full Address *</label><input type="text" id="c-address" placeholder="Complete address"/></div>
-      </div>
-      <button class="btn-submit" onclick="submitOrder()"><i class="fas fa-paper-plane"></i> Submit Order</button>
-      <div id="form-msg" class="form-msg"></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -429,22 +364,15 @@
       <div class="footer-col">
         <div class="footer-col-title">Quick Links</div>
         <nav class="footer-nav-links">
-          <a href="#home">Home</a>
-          <a href="#about">About Us</a>
-          <a href="#certificates">Certificates</a>
-          <a href="#services">Services</a>
-          <a href="#products">Products</a>
-          <a href="#reviews">Reviews</a>
-          <a href="#contact">Contact</a>
+          <a href="#home">Home</a><a href="#about">About Us</a><a href="#certificates">Certificates</a><a href="#services">Services</a><a href="#products">Products</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
         </nav>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Contact Us</div>
         <div class="footer-contact-list">
           <div class="footer-contact-item"><i class="fas fa-envelope"></i><span><a href="mailto:dormetfireworks@gmail.com">dormetfireworks@gmail.com</a></span></div>
-          <div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span><a href="https://wa.me/923000000000">+92 300 0000000</a></span></div>
+          <div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span><a href="https://wa.me/923193921895">+92 319 3921895</a></span></div>
           <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Karachi, Sindh, Pakistan<br/>All Areas Delivery Available</span></div>
-          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon–Sat: 9 AM – 9 PM<br/>Sun: 10 AM – 6 PM</span></div>
         </div>
       </div>
       <div class="footer-col">
@@ -468,26 +396,19 @@
   </div>
 </footer>
 
-<!-- REVIEW MODAL -->
 <div id="review-modal" class="modal-overlay" style="display:none">
   <div class="modal-box">
     <button class="modal-close" onclick="closeReviewModal()"><i class="fas fa-times"></i></button>
     <h3><i class="fas fa-star"></i> Share Your Review</h3>
     <div class="modal-form">
       <div class="form-group"><label>Your Name *</label><input type="text" id="rev-name" placeholder="Muhammad Ali"/></div>
-      <div class="form-group">
-        <label>Star Rating</label>
-        <div class="star-picker" id="star-picker">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-        </div>
-      </div>
+      <div class="form-group"><label>Star Rating</label><div class="star-picker" id="star-picker"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div>
       <div class="form-group"><label>Your Review *</label><textarea id="rev-text" rows="4" placeholder="Share your experience with DI.Fireworks..."></textarea></div>
       <button class="btn-submit" onclick="postReview()"><i class="fas fa-paper-plane"></i> Post Review</button>
     </div>
   </div>
 </div>
 
-<!-- MAP MODAL -->
 <div id="map-modal" class="modal-overlay" style="display:none">
   <div class="modal-box map-modal-box">
     <button class="modal-close" onclick="closeMap()"><i class="fas fa-times"></i></button>
@@ -500,25 +421,157 @@
 
 <script>
   function toggleTheme() {
-    const html = document.documentElement;
-    const isDark = html.getAttribute('data-theme') === 'dark';
-    const newTheme = isDark ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    document.getElementById('theme-icon').className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    var html = document.documentElement;
+    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    document.getElementById('theme-icon').className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
     updateMobileThemeBtn();
   }
   function updateMobileThemeBtn() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const mIcon  = document.getElementById('theme-icon-m');
-    const mLabel = document.getElementById('theme-label-m');
-    if (mIcon)  mIcon.className  = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var mIcon = document.getElementById('theme-icon-m');
+    var mLabel = document.getElementById('theme-label-m');
+    if (mIcon) mIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
     if (mLabel) mLabel.textContent = isDark ? 'Light Mode' : 'Dark Mode';
   }
+
+  function switchFormTab(tab) {
+    document.querySelectorAll('.form-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.form-panel').forEach(function(p) { p.classList.remove('active'); });
+    if (tab === 'order') {
+      document.querySelectorAll('.form-tab')[0].classList.add('active');
+      document.getElementById('panel-order').classList.add('active');
+    } else {
+      document.querySelectorAll('.form-tab')[1].classList.add('active');
+      document.getElementById('panel-event').classList.add('active');
+    }
+  }
+
+  var orderSubCats = {
+    pakistani: ['Anar / Fountain', 'Rocket', 'Phooljhadi / Sparkler', 'Bomb / Cracker', 'Gift Box', 'Wedding Special', 'Rang / Color', 'Other'],
+    chinese:   ['Sky Shooter', 'Aerial Shell', 'Repeater / Cake', 'Smoke Bomb', 'Roman Candle', 'Mega Kit', 'Fountain', 'Other'],
+    birthday:  ['Sparklers', 'Candles', 'Party Poppers', 'Color Smoke', 'Birthday Kit', 'Number Candles', 'Confetti', 'Other']
+  };
+  var selectedSubCats = [];
+
+  function onOrderCatChange() {
+    var cat = document.getElementById('o-category').value;
+    var area = document.getElementById('o-subcat-area');
+    var summary = document.getElementById('o-selected-summary');
+    selectedSubCats = [];
+    summary.classList.remove('visible');
+    area.innerHTML = '';
+    if (!cat || !orderSubCats[cat]) return;
+    var html = '<div class="form-sub-pills">';
+    orderSubCats[cat].forEach(function(item) {
+      html += '<span class="form-sub-pill" data-item="' + item + '" onclick="toggleSubCat(this)">' + item + '</span>';
+    });
+    html += '</div>';
+    area.innerHTML = html;
+  }
+
+  function toggleSubCat(el) {
+    var item = el.getAttribute('data-item');
+    var idx = selectedSubCats.indexOf(item);
+    if (idx === -1) { selectedSubCats.push(item); el.classList.add('selected'); }
+    else { selectedSubCats.splice(idx, 1); el.classList.remove('selected'); }
+    updateSelectedSummary();
+  }
+
+  function updateSelectedSummary() {
+    var summary = document.getElementById('o-selected-summary');
+    var text = document.getElementById('o-selected-text');
+    if (selectedSubCats.length > 0) { text.textContent = selectedSubCats.join(', '); summary.classList.add('visible'); }
+    else { summary.classList.remove('visible'); }
+  }
+
+  function sendOrderToWhatsApp() {
+    var name = document.getElementById('o-name').value.trim();
+    var phone = document.getElementById('o-phone').value.trim();
+    var email = document.getElementById('o-email').value.trim();
+    var cat = document.getElementById('o-category').value;
+    var details = document.getElementById('o-details').value.trim();
+    document.querySelectorAll('#panel-order .form-group').forEach(function(fg) { fg.classList.remove('shake'); });
+    var errors = false;
+    if (!name)  { document.getElementById('fg-o-name').classList.add('shake'); errors = true; }
+    if (!phone) { document.getElementById('fg-o-phone').classList.add('shake'); errors = true; }
+    if (!cat)   { document.getElementById('fg-o-cat').classList.add('shake'); errors = true; }
+    if (errors) { showFormMsg('form-msg-order', 'Please fill in all required fields', '#ff4d4d'); return; }
+    var catLabels = { pakistani: '🇵🇰 Pakistani Fireworks', chinese: '🇨🇳 Chinese Fireworks', birthday: '🎂 Birthday Supplies' };
+    var msg = '🧨 *DI.Fireworks — Product Order*\n━━━━━━━━━━━━━━━━━━━━\n\n';
+    msg += '👤 *Name:* ' + name + '\n📱 *Phone:* ' + phone + '\n';
+    if (email) msg += '📧 *Email:* ' + email + '\n';
+    msg += '\n📦 *Category:* ' + (catLabels[cat] || cat) + '\n';
+    if (selectedSubCats.length > 0) msg += '🏷️ *Items:* ' + selectedSubCats.join(', ') + '\n';
+    if (details) msg += '\n💬 *Details:*\n' + details + '\n';
+    msg += '\n━━━━━━━━━━━━━━━━━━━━\nSent from DI.Fireworks Website';
+    openWhatsApp(msg);
+    showFormMsg('form-msg-order', 'Opening WhatsApp...', 'var(--gold, #c9a84c)');
+  }
+
+  function sendEventToWhatsApp() {
+    var name = document.getElementById('e-name').value.trim();
+    var phone = document.getElementById('e-phone').value.trim();
+    var email = document.getElementById('e-email').value.trim();
+    var date = document.getElementById('e-date').value;
+    var type = document.getElementById('e-type').value;
+    var guests = document.getElementById('e-guests').value.trim();
+    var venue = document.getElementById('e-venue').value.trim();
+    var details = document.getElementById('e-details').value.trim();
+    document.querySelectorAll('#panel-event .form-group').forEach(function(fg) { fg.classList.remove('shake'); });
+    var errors = false;
+    if (!name)  { document.getElementById('fg-e-name').classList.add('shake'); errors = true; }
+    if (!phone) { document.getElementById('fg-e-phone').classList.add('shake'); errors = true; }
+    if (!date)  { document.getElementById('fg-e-date').classList.add('shake'); errors = true; }
+    if (!type)  { document.getElementById('fg-e-type').classList.add('shake'); errors = true; }
+    if (errors) { showFormMsg('form-msg-event', 'Please fill in all required fields', '#ff4d4d'); return; }
+    var typeLabels = { 'Wedding':'💍 Wedding','Birthday':'🎂 Birthday Party','Corporate':'🏢 Corporate Event','National Day':'🇵🇰 National Day','New Year':'🎆 New Year','Engagement':'💍 Engagement','Other':'🎉 Other' };
+    var dateObj = new Date(date + 'T00:00:00');
+    var dateStr = dateObj.toLocaleDateString('en-PK', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    var msg = '🎉 *DI.Fireworks — Event Planning*\n━━━━━━━━━━━━━━━━━━━━\n\n';
+    msg += '👤 *Name:* ' + name + '\n📱 *Phone:* ' + phone + '\n';
+    if (email) msg += '📧 *Email:* ' + email + '\n';
+    msg += '\n🎪 *Event Type:* ' + (typeLabels[type] || type) + '\n📅 *Date:* ' + dateStr + '\n';
+    if (guests) msg += '👥 *Guests:* ' + guests + '\n';
+    if (venue) msg += '📍 *Venue:* ' + venue + '\n';
+    if (details) msg += '\n💬 *Requirements:*\n' + details + '\n';
+    msg += '\n━━━━━━━━━━━━━━━━━━━━\nSent from DI.Fireworks Website';
+    openWhatsApp(msg);
+    showFormMsg('form-msg-event', 'Opening WhatsApp...', 'var(--gold, #c9a84c)');
+  }
+
+  function openWhatsApp(message) {
+    window.open('https://wa.me/923193921895?text=' + encodeURIComponent(message), '_blank');
+  }
+
+  function showFormMsg(id, text, color) {
+    var el = document.getElementById(id);
+    el.textContent = text; el.style.color = color; el.style.display = 'block';
+    clearTimeout(el._timer);
+    el._timer = setTimeout(function() { el.style.display = 'none'; }, 4000);
+  }
+
+  document.querySelectorAll('.contact-form input, .contact-form select, .contact-form textarea').forEach(function(el) {
+    el.addEventListener('input', function() { var fg = this.closest('.form-group'); if (fg) fg.classList.remove('shake'); });
+    el.addEventListener('change', function() { var fg = this.closest('.form-group'); if (fg) fg.classList.remove('shake'); });
+  });
+
   document.addEventListener('DOMContentLoaded', function() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     document.getElementById('theme-icon').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
     document.getElementById('year').textContent = new Date().getFullYear();
     updateMobileThemeBtn();
+    var extBtn = document.getElementById('sound-toggle-external');
+    var mainBtn = document.getElementById('sound-toggle');
+    if (extBtn && mainBtn) { extBtn.addEventListener('click', function() { mainBtn.click(); }); }
+    var mainIcon = document.getElementById('sound-icon');
+    var extIcon = document.getElementById('sound-icon-external');
+    if (mainIcon && extIcon) {
+      extIcon.className = mainIcon.className;
+      new MutationObserver(function() { extIcon.className = mainIcon.className; }).observe(mainIcon, { attributes: true, attributeFilter: ['class'] });
+    }
+    var dateInput = document.getElementById('e-date');
+    if (dateInput) { var t = new Date(); dateInput.setAttribute('min', t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0')); }
   });
 </script>
 <script src="script.js"></script>
